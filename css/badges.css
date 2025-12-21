@@ -582,3 +582,80 @@ body {
     }
 
     .filter-tab {
+        padding: 0.625rem 1rem;
+        font-size: 0.875rem;
+    }
+
+    .badges-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .badge-card {
+        padding: 1.5rem;
+    }
+
+    .badge-icon {
+        width: 64px;
+        height: 64px;
+        margin-bottom: 1rem;
+    }
+}
+
+/* Small mobile */
+@media (max-width: 480px) {
+    .page-title {
+        font-size: 1.5rem;
+    }
+
+    .badge-card {
+        padding: 1.25rem;
+    }
+
+    .badge-title {
+        font-size: 1.125rem;
+    }
+
+    .badge-description {
+        font-size: 0.875rem;
+    }
+}
+
+/* Animations */
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.nav-menu.active .nav-list {
+    animation: slideDown 0.3s ease;
+}
+
+@keyframes badgeEarn {
+    0% {
+        transform: scale(0.8) rotate(-5deg);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.1) rotate(5deg);
+    }
+    100% {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+    }
+}
+
+.badge-card.earned {
+    animation: badgeEarn 0.5s ease-out;
+}
+
+/* Hidden state for filtering */
+.badge-card.hidden {
+    display: none;
+}
