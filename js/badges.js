@@ -74,6 +74,8 @@
         });
         
         function filterBadges(filter) {
+            const badgeCards = document.querySelectorAll('.badge-card');
+            
             badgeCards.forEach(card => {
                 if (filter === 'all') {
                     card.classList.remove('hidden');
@@ -117,8 +119,21 @@
             if (progressPercentEl) progressPercentEl.textContent = progressPercent + '%';
         }
         
-        // Initialize stats
-        updateStats();
+        // ===== UPDATE STATISTICS =====
+        function updateStats() {
+            const earnedBadges = document.querySelectorAll('.badge-card.earned').length;
+            const totalBadges = document.querySelectorAll('.badge-card').length;
+            const progressPercent = totalBadges > 0 ? Math.round((earnedBadges / totalBadges) * 100) : 0;
+            
+            // Update DOM
+            const earnedCountEl = document.getElementById('earnedCount');
+            const totalCountEl = document.getElementById('totalCount');
+            const progressPercentEl = document.getElementById('progressPercent');
+            
+            if (earnedCountEl) earnedCountEl.textContent = earnedBadges;
+            if (totalCountEl) totalCountEl.textContent = totalBadges;
+            if (progressPercentEl) progressPercentEl.textContent = progressPercent + '%';
+        }
         
         // ===== BADGE CARD INTERACTIONS =====
         badgeCards.forEach(card => {
