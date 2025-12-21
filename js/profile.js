@@ -307,6 +307,9 @@
                     // Load user stats
                     await loadUserStats(currentUser.objectId);
                     
+                    // Load user badges immediately
+                    await loadUserBadges(currentUser.objectId);
+                    
                     // Hide loading, show content
                     document.getElementById('loadingState').style.display = 'none';
                     document.getElementById('profileContent').style.display = 'block';
@@ -720,7 +723,12 @@
                 loadUserProjects(currentUser.objectId);
             }
         });
-        
-    });
+
+        // Load badges immediately when profile loads
+        loadUserProfile().then(() => {
+            if (currentUser) {
+                loadUserBadges(currentUser.objectId);
+            }
+        });
     
 })();
