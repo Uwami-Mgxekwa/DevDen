@@ -12,6 +12,22 @@
 
     let currentUser = null;
 
+    // ===== IN-APP NOTIFICATION SYSTEM =====
+    function showNotification(message, type = 'info') {
+        // Remove existing notifications
+        const existingNotifications = document.querySelectorAll('.notification');
+        existingNotifications.forEach(notif => notif.remove());
+        
+        // Create notification element
+        const notification = document.createElement('div');
+        notification.className = `notification notification-${type}`;
+        
+        // Set icon based on type
+        let icon = '';
+        switch (type) {
+            case 'success':
+            
+
     // Wait for DOM to be ready
     document.addEventListener('DOMContentLoaded', function() {
         
@@ -376,23 +392,16 @@
                     headers['X-Parse-Session-Token'] = session.sessionToken;
                 }
                 
-                // Create a pointer to the user for queries
-                const userPointer = {
-                    __type: 'Pointer',
-                    className: '_User',
-                    objectId: userId
-                };
-                
-                // Fetch counts for different entities
+                // Fetch counts for different entities using userId field
                 const [postsResponse, commentsResponse, projectsResponse, badgesResponse] = await Promise.all([
                     // Count posts by user
-                    fetch(`${BACK4APP_CONFIG.serverURL}/classes/Post?where=${encodeURIComponent(JSON.stringify({ author: userPointer }))}&count=1&limit=0`, { headers }),
+                    fetch(`${BACK4APP_CONFIG.serverURL}/classes/Post?where=${encodeURIComponent(JSON.stringify({ userId: userId }))}&count=1&limit=0`, { headers }),
                     // Count comments by user
-                    fetch(`${BACK4APP_CONFIG.serverURL}/classes/Comment?where=${encodeURIComponent(JSON.stringify({ author: userPointer }))}&count=1&limit=0`, { headers }),
+                    fetch(`${BACK4APP_CONFIG.serverURL}/classes/Comment?where=${encodeURIComponent(JSON.stringify({ userId: userId }))}&count=1&limit=0`, { headers }),
                     // Count projects by user
-                    fetch(`${BACK4APP_CONFIG.serverURL}/classes/Project?where=${encodeURIComponent(JSON.stringify({ author: userPointer }))}&count=1&limit=0`, { headers }),
-                    // Count badges earned by user (you'll need to implement badge system)
-                    fetch(`${BACK4APP_CONFIG.serverURL}/classes/UserBadge?where=${encodeURIComponent(JSON.stringify({ user: userPointer }))}&count=1&limit=0`, { headers })
+                    fetch(`${BACK4APP_CONFIG.serverURL}/classes/Project?where=${encodeURIComponent(JSON.stringify({ userId: userId }))}&count=1&limit=0`, { headers }),
+                    // Count badges earned by user
+                    fetch(`${BACK4APP_CONFIG.serverURL}/classes/UserBadge?where=${encodeURIComponent(JSON.stringify({ userId: userId }))}&count=1&limit=0`, { headers })
                 ]);
                 
                 const posts = await postsResponse.json();
@@ -409,6 +418,10 @@
             } catch (error) {
                 console.error('Error loading stats:', error);
                 // Keep default values if API fails
+                document.getElementById('statPosts').textContent = '0';
+                document.getElementById('statComments').textContent = '0';
+                document.getElementById('statProjects').textContent = '0';
+                document.getElementById('statBadges').textContent = '0';
             }
         }
         
