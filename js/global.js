@@ -122,7 +122,9 @@
         // Logout user
         logout: function() {
             this.clearSession();
-            window.location.href = 'index.html';
+            // Check if we're in a subdirectory (pages folder)
+            const isInPages = window.location.pathname.includes('/pages/');
+            window.location.href = isInPages ? '../index.html' : 'index.html';
         }
     };
     
