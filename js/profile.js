@@ -702,9 +702,6 @@
             return 'Just now';
         }
         
-        // ===== INITIALIZE =====
-        loadUserProfile();
-        
         // Load additional data when tabs are clicked
         document.querySelector('[data-tab="badges"]').addEventListener('click', function() {
             if (currentUser) {
@@ -724,11 +721,13 @@
             }
         });
 
-        // Load badges immediately when profile loads
-        loadUserProfile().then(() => {
-            if (currentUser) {
-                loadUserBadges(currentUser.objectId);
-            }
-        });
+        // ===== INITIALIZE =====
+        async function initializePage() {
+            await loadUserProfile();
+        }
+        
+        initializePage();
+        
+    });
     
 })();
