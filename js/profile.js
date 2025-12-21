@@ -1,4 +1,4 @@
-    // DevDen Profile Page - profile.js
+// DevDen Profile Page - profile.js
 
 (function() {
     'use strict';
@@ -382,4 +382,260 @@
                     // Count projects by user
                     fetch(`${BACK4APP_CONFIG.serverURL}/classes/Project?where=${encodeURIComponent(JSON.stringify({ author: userPointer }))}&count=1&limit=0`, { headers }),
                     // Count badges earned by user (you'll need to implement badge system)
-                    fetch(`${BACK4APP_CONFIG.serverURL
+                    fetch(`${BACK4APP_CONFIG.serverURL}/classes/UserBadge?where=${encodeURIComponent(JSON.stringify({ user: userPointer }))}&count=1&limit=0`, { headers })
+                ]);
+                
+                const posts = await postsResponse.json();
+                const comments = await commentsResponse.json();
+                const projects = await projectsResponse.json();
+                const badges = await badgesResponse.json();
+                
+                // Update stats in UI
+                document.getElementById('statPosts').textContent = posts.count || 0;
+                document.getElementById('statComments').textContent = comments.count || 0;
+                document.getElementById('statProjects').textContent = projects.count || 0;
+                document.getElementById('statBadges').textContent = badges.count || 0;
+                
+            } catch (error) {
+                console.error('Error loading stats:', error);
+                // Keep default values if API fails
+            }
+        }
+        
+        // ===== LOAD USER BADGES =====
+        async function loadUserBadges(userId) {
+            try {
+                const headers = {
+                    'X-Parse-Application-Id': BACK4APP_CONFIG.applicationId,
+                    'X-Parse-JavaScript-Key': BACK4APP_CONFIG.javascriptKey,
+                    'Content-Type': 'application/json'
+                };
+                
+                const session = window.DevDen.session.getSession();
+                if (session && session.sessionToken) {
+                    headers['X-Parse-Session-Token'] = session.sessionToken;
+                }
+                
+                const userPointer = {
+                    __type: 'Pointer',
+                    className: '_User',
+                    objectId: userId
+                };
+                
+                const response = await fetch(
+                    `${BACK4APP_CONFIG.serverURL}/classes/UserBadge?where=${encodeURIComponent(JSON.stringify({ user: userPointer }))}&include=badge`,
+                    { headers }
+                );
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    const badgesGrid = document.getElementById('badgesGrid');
+                    
+                    if (data.results && data.results.length > 0) {
+                        badgesGrid.innerHTML = '';
+                        
+                        data.results.forEach(userBadge => {
+                            const badge = userBadge.badge;
+                            const badgeCard = createBadgeCard(badge);
+                            badgesGrid.appendChild(badgeCard);
+                        });
+                    }
+                }
+            } catch (error) {
+                console.error('Error loading badges:', error);
+            }
+        }
+        
+        // ===== CREATE BADGE CARD =====
+        function createBadgeCard(badge) {
+            const card = document.createElement('div');
+            card.className = 'badge-card';
+            
+            card.innerHTML = `
+                <div class="badge-icon">${badge.icon || '🏆'}</div>
+                <h3 class="badge-name">${badge.name}</h3>
+                <p class="badge-description">${badge.description}</p>
+            `;
+            
+            return card;
+        }
+        
+        // ===== LOAD USER ACTIVITY =====
+        async function loadUserActivity(userId) {
+            try {
+                const headers = {
+                    'X-Parse-Application-Id': BACK4APP_CONFIG.applicationId,
+                    'X-Parse-JavaScript-Key': BACK4APP_CONFIG.javascriptKey,
+                    'Content-Type': 'application/json'
+                };
+                
+                const session = window.DevDen.session.getSession();
+                if (session && session.sessionToken) {
+                    headers['X-Parse-Session-Token'] = session.sessionToken;
+                }
+                
+                const userPointer = {
+                    __type: 'Pointer',
+                    className: '_User',
+                    objectId: userId
+                };
+                
+                // Fetch recent posts
+                const response = await fetch(
+                    `${BACK4APP_CONFIG.serverURL}/classes/Post?where=${encodeURIComponent(JSON.stringify({ author: userPointer }))}&order=-createdAt&limit=10`,
+                    { headers }
+                );
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    const activityFeed = document.getElementById('activityFeed');
+                    
+                    if (data.results && data.results.length > 0) {
+                        activityFeed.innerHTML = '';
+                        
+                        data.results.forEach(post => {
+                            const activityItem = createActivityItem(post);
+                            activityFeed.appendChild(activityItem);
+                        });
+                    }
+                }
+            } catch (error) {
+                console.error('Error loading activity:', error);
+            }
+        }
+        
+        // ===== CREATE ACTIVITY ITEM =====
+        function createActivityItem(post) {
+            const item = document.createElement('div');
+            item.className = 'activity-item';
+            
+            const timeAgo = getTimeAgo(new Date(post.createdAt));
+            
+            item.innerHTML = `
+                <div class="activity-header">
+                    <div class="activity-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2v10z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <div class="activity-info">
+                        <h3 class="activity-title">Posted in Forum</h3>
+                        <span class="activity-time">${timeAgo}</span>
+                    </div>
+                </div>
+                <div class="activity-content">${post.title}</div>
+            `;
+            
+            return item;
+        }
+        
+        // ===== LOAD USER PROJECTS =====
+        async function loadUserProjects(userId) {
+            try {
+                const headers = {
+                    'X-Parse-Application-Id': BACK4APP_CONFIG.applicationId,
+                    'X-Parse-JavaScript-Key': BACK4APP_CONFIG.javascriptKey,
+                    'Content-Type': 'application/json'
+                };
+                
+                const session = window.DevDen.session.getSession();
+                if (session && session.sessionToken) {
+                    headers['X-Parse-Session-Token'] = session.sessionToken;
+                }
+                
+                const userPointer = {
+                    __type: 'Pointer',
+                    className: '_User',
+                    objectId: userId
+                };
+                
+                const response = await fetch(
+                    `${BACK4APP_CONFIG.serverURL}/classes/Project?where=${encodeURIComponent(JSON.stringify({ author: userPointer }))}&order=-createdAt`,
+                    { headers }
+                );
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    const projectsGrid = document.getElementById('projectsGrid');
+                    
+                    if (data.results && data.results.length > 0) {
+                        projectsGrid.innerHTML = '';
+                        
+                        data.results.forEach(project => {
+                            const projectCard = createProjectCard(project);
+                            projectsGrid.appendChild(projectCard);
+                        });
+                    }
+                }
+            } catch (error) {
+                console.error('Error loading projects:', error);
+            }
+        }
+        
+        // ===== CREATE PROJECT CARD =====
+        function createProjectCard(project) {
+            const card = document.createElement('div');
+            card.className = 'project-card';
+            
+            const tagsHTML = project.tags ? project.tags.map(tag => 
+                `<span class="project-tag">${tag}</span>`
+            ).join('') : '';
+            
+            card.innerHTML = `
+                <div class="project-header">
+                    <h3 class="project-title">${project.title}</h3>
+                </div>
+                <p class="project-description">${project.description || 'No description'}</p>
+                <div class="project-tags">${tagsHTML}</div>
+            `;
+            
+            return card;
+        }
+        
+        // ===== HELPER: GET TIME AGO =====
+        function getTimeAgo(date) {
+            const seconds = Math.floor((new Date() - date) / 1000);
+            
+            let interval = seconds / 31536000;
+            if (interval > 1) return Math.floor(interval) + ' years ago';
+            
+            interval = seconds / 2592000;
+            if (interval > 1) return Math.floor(interval) + ' months ago';
+            
+            interval = seconds / 86400;
+            if (interval > 1) return Math.floor(interval) + ' days ago';
+            
+            interval = seconds / 3600;
+            if (interval > 1) return Math.floor(interval) + ' hours ago';
+            
+            interval = seconds / 60;
+            if (interval > 1) return Math.floor(interval) + ' minutes ago';
+            
+            return 'Just now';
+        }
+        
+        // ===== INITIALIZE =====
+        loadUserProfile();
+        
+        // Load additional data when tabs are clicked
+        document.querySelector('[data-tab="badges"]').addEventListener('click', function() {
+            if (currentUser) {
+                loadUserBadges(currentUser.objectId);
+            }
+        });
+        
+        document.querySelector('[data-tab="activity"]').addEventListener('click', function() {
+            if (currentUser) {
+                loadUserActivity(currentUser.objectId);
+            }
+        });
+        
+        document.querySelector('[data-tab="projects"]').addEventListener('click', function() {
+            if (currentUser) {
+                loadUserProjects(currentUser.objectId);
+            }
+        });
+        
+    });
+    
+})();
