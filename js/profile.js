@@ -229,19 +229,19 @@
             }
             
             try {
+                // Use userId from session (stored during login)
+                const userId = session.userId || session.objectId;
+                
+                if (!userId) {
+                    throw new Error('No user ID found in session');
+                }
+                
                 // Fetch user data from Back4App
-                const response = await fetch(`${BACK4APP_CONFIG.serverURL}/users/${session.objectId}`, {
+                const response = await fetch(`${BACK4APP_CONFIG.serverURL}/users/${userId}`, {
                     headers: {
                         'X-Parse-Application-Id': BACK4APP_CONFIG.applicationId,
                         'X-Parse-JavaScript-Key': BACK4APP_CONFIG.javascriptKey,
-                        'X-Parse-Session-Token': session.sessionToken,
-                        'Content-Type': 'application/json'
-                    }
-                });
-                
-                if (response.ok) {
-                    currentUser = await response.json();
-                    
+                        'X-Parse-
                     // Update UI with user data
                     updateProfileUI(currentUser);
                     
