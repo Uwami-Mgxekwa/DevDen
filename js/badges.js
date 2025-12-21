@@ -265,19 +265,32 @@
             const badgesGrid = document.getElementById('badgesGrid');
             if (!badgesGrid) return;
 
-            // Create a map of earned badges for quick lookup
+            // Create a map of earned badges for quick lookup (using badge name for fallback)
             const earnedBadgesMap = new Map();
             userBadges.forEach(badge => {
+                // Try to match by badgeId first, then by badge name
                 earnedBadgesMap.set(badge.badgeId, badge);
+                if (badge.badgeName) {
+                    earnedBadgesMap.set(badge.badgeName, badge);
+                }
             });
 
             // Clear existing badges
             badgesGrid.innerHTML = '';
 
+            // If no badge definitions from API, create default badge set
+            if (badgeDefinitions.length === 0) {
+                badgeDefinitions = getDefaultBadgeDefinitions();
+            }
+
             // Render each badge
             badgeDefinitions.forEach(badgeDef => {
-                const isEarned = earnedBadgesMap.has(badgeDef.objectId);
-                const earnedBadge = earnedBadgesMap.get(badgeDef.objectId);
+                // Check if badge is earned by ID or name
+                const isEarnedById = earnedBadgesMap.has(badgeDef.objectId);
+                const isEarnedByName = earnedBadgesMap.has(badgeDef.name);
+                const isEarned = isEarnedById || isEarnedByName;
+                
+                const earnedBadge = earnedBadgesMap.get(badgeDef.objectId) || earnedBadgesMap.get(badgeDef.name);
                 
                 const badgeCard = createBadgeCard(badgeDef, isEarned, earnedBadge, userStats);
                 badgesGrid.appendChild(badgeCard);
@@ -285,6 +298,116 @@
 
             // Update statistics
             updateStats();
+        }
+
+        // ===== GET DEFAULT BADGE DEFINITIONS =====
+        function getDefaultBadgeDefinitions() {
+            return [
+                {
+                    objectId: 'welcome-badge',
+                    name: 'Welcome Aboard',
+                    description: 'Created your DevDen account',
+                    category: 'welcome',
+                    type: 'account_creation',
+                    requirements: {}
+                },
+                {
+                    objectId: 'first-post-badge',
+                    name: 'First Post',
+                    description: 'Made your first forum post',
+                    category: 'forum',
+                    type: 'posts',
+                    requirements: { posts: 1 }
+                },
+                {
+                    objectId: 'contributor-badge',
+                    name: 'Contributor',
+                    description: 'Posted 10 forum replies',
+                    category: 'contribution',
+                    type: 'replies',
+                    requirements: { replies: 10 }
+                },
+                {
+                    objectId: 'helper-badge',
+                    name: 'Helper',
+                    description: 'Received 5 upvotes on your answers',
+                    category: 'helper',
+                    type: 'upvotes',
+                    requirements: { upvotes: 5 }
+                },
+                {
+                    objectId: 'event-attendee-badge',
+                    name: 'Event Attendee',
+                    description: 'Attended your first DevDen event',
+                    category: 'events',
+                    type: 'events',
+                    requirements: { events: 1 }
+                },
+                {
+                    objectId: 'project-launcher-badge',
+                    name: 'Project Launcher',
+                    description: 'Shared your first project',
+                    category: 'projects',
+                    type: 'projects',
+                    requirements: { projects: 1 }
+                },
+                {
+                    objectId: 'code-reviewer-badge',
+                    name: 'Code Reviewer',
+                    description: 'Reviewed 5 community projects',
+                    category: 'code',
+                    type: 'reviews',
+                    requirements: { reviews: 5 }
+                },
+                {
+                    objectId: 'early-adopter-badge',
+                    name: 'Early Adopter',
+                    description: 'Joined DevDen in the first month',
+                    category: 'star',
+                    type: 'early_adopter',
+                    requirements: {}
+                },
+                {
+                    objectId: 'active-member-badge',
+                    name: 'Active Member',
+                    description: 'Be active for 30 consecutive days',
+                    category: 'contribution',
+                    type: 'days_active',
+                    requirements: { days: 30 }
+                },
+                {
+                    objectId: 'mentor-badge',
+                    name: 'Mentor',
+                    description: 'Receive 50 upvotes on your answers',
+                    category: 'helper',
+                    type: 'upvotes',
+                    requirements: { upvotes: 50 }
+                },
+                {
+                    objectId: 'prolific-writer-badge',
+                    name: 'Prolific Writer',
+                    description: 'Create 50 forum posts',
+                    category: 'forum',
+                    type: 'posts',
+                    requirements: { posts: 50 }
+                },
+                {
+                    objectId: 'resource-creator-badge',
+                    name: 'Resource Creator',
+                    description: 'Upload 10 learning resources',
+                    category: 'contribution',
+                    type: 'resources',
+                    requirements: { resources: 10 }
+                },
+                {
+                    objectId: 'event-organizer-badge',
+                    name: 'Event Organizer',
+                    description: 'Host 3 community events',
+                    category: 'events',
+                    type: 'events_hosted',
+                    requirements: { events_hosted: 3 }
+                }
+            ];
         }
 
         // ===== CREATE BADGE CARD ELEMENT =====
@@ -361,6 +484,12 @@
             let unit = 'actions';
 
             switch (badgeDef.type) {
+                case 'account_creation':
+                    // Welcome badge - should be earned immediately on signup
+                    current = 1;
+                    required = 1;
+                    unit = 'account';
+                    break;
                 case 'posts':
                     current = userStats.totalPosts || 0;
                     required = requirements.posts || 1;
@@ -395,6 +524,22 @@
                     current = userStats.resourcesShared || 0;
                     required = requirements.resources || 1;
                     unit = 'resources';
+                    break;
+                case 'reviews':
+                    current = userStats.projectReviews || 0;
+                    required = requirements.reviews || 1;
+                    unit = 'reviews';
+                    break;
+                case 'events_hosted':
+                    current = userStats.eventsHosted || 0;
+                    required = requirements.events_hosted || 1;
+                    unit = 'events hosted';
+                    break;
+                case 'early_adopter':
+                    // Check if user joined in first month (this would be set manually)
+                    current = userStats.isEarlyAdopter ? 1 : 0;
+                    required = 1;
+                    unit = 'qualification';
                     break;
                 default:
                     current = 0;

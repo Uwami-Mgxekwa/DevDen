@@ -108,6 +108,68 @@ async function signupUser(username, email, password) {
     }
 }
 
+// Award welcome badge to new user
+async function awardWelcomeBadge(userId, sessionToken) {
+    try {
+        // First, create initial user stats
+        await fetch(`${BACK4APP_CONFIG.serverURL}/classes/UserStats`, {
+            method: 'POST',
+            headers: {
+                'X-Parse-Application-Id': BACK4APP_CONFIG.applicationId,
+                'X-Parse-JavaScript-Key': BACK4APP_CONFIG.javascriptKey,
+                'X-Parse-Session-Token': sessionToken,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                userId: userId,
+                totalPosts: 0,
+                totalReplies: 0,
+                totalUpvotes: 0,
+                totalProjects: 0,
+                eventsAttended: 0,
+                consecutiveDays: 1,
+                resourcesShared: 0,
+                accountCreated: new Date().toISOString()
+            })
+        });
+
+        // Find the Welcome Aboard badge definition
+        const badgeDefResponse = await fetch(`${BACK4APP_CONFIG.serverURL}/classes/BadgeDefinition?where=${encodeURIComponent(JSON.stringify({name: "Welcome Aboard"}))}`, {
+            headers: {
+                'X-Parse-Application-Id': BACK4APP_CONFIG.applicationId,
+                'X-Parse-JavaScript-Key': BACK4APP_CONFIG.javascriptKey,
+                'Content-Type': 'application/json'
+            }
+        });
+
+        const badgeDefData = await badgeDefResponse.json();
+        
+        if (badgeDefData.results && badgeDefData.results.length > 0) {
+            const welcomeBadge = badgeDefData.results[0];
+            
+            // Award the welcome badge
+            await fetch(`${BACK4APP_CONFIG.serverURL}/classes/UserBadge`, {
+                method: 'POST',
+                headers: {
+                    'X-Parse-Application-Id': BACK4APP_CONFIG.applicationId,
+                    'X-Parse-JavaScript-Key': BACK4APP_CONFIG.javascriptKey,
+                    'X-Parse-Session-Token': sessionToken,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    userId: userId,
+                    badgeId: welcomeBadge.objectId,
+                    badgeName: welcomeBadge.name,
+                    earnedAt: new Date().toISOString()
+                })
+            });
+        }
+    } catch (error) {
+        console.error('Error awarding welcome badge:', error);
+        // Don't throw error - signup should still succeed even if badge fails
+    }
+}
+
 // Handle form submission
 signupForm.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -156,6 +218,9 @@ signupForm.addEventListener('submit', async (e) => {
         const userData = await signupUser(username, email, password);
         
         showSuccess('Account created successfully! Redirecting to login...');
+        
+        // Award the Welcome Aboard badge automatically
+        await awardWelcomeBadge(userData.objectId, userData.sessionToken);
         
         // Clear form
         signupForm.reset();
