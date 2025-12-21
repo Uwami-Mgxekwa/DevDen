@@ -281,6 +281,20 @@
             // If no badge definitions from API, create default badge set
             if (badgeDefinitions.length === 0) {
                 badgeDefinitions = getDefaultBadgeDefinitions();
+                
+                // For new users, automatically mark Welcome Aboard as earned if they have an account
+                if (window.DevDen && window.DevDen.session && window.DevDen.session.isLoggedIn()) {
+                    const session = window.DevDen.session.getSession();
+                    if (session && !earnedBadgesMap.has('Welcome Aboard')) {
+                        // Create a mock earned badge for Welcome Aboard
+                        earnedBadgesMap.set('Welcome Aboard', {
+                            badgeId: 'welcome-badge',
+                            badgeName: 'Welcome Aboard',
+                            earnedAt: session.createdAt || new Date().toISOString(),
+                            createdAt: session.createdAt || new Date().toISOString()
+                        });
+                    }
+                }
             }
 
             // Render each badge
