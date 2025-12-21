@@ -1,1 +1,173 @@
-ECHO is off.
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="DevDen - Home. The Developer's Den for South African developers.">
+    <title>DevDen - Home</title>
+    <link rel="stylesheet" href="../css/home.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <!-- Logo/Brand -->
+            <div class="nav-brand">
+                <a href="home.html">DevDen</a>
+            </div>
+
+            <!-- Hamburger Menu Icon -->
+            <button class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+
+            <!-- Navigation Links -->
+            <div class="nav-menu" id="navMenu">
+                <ul class="nav-list">
+                    <li><a href="home.html" class="nav-link active">Home</a></li>
+                    <li><a href="profile.html" class="nav-link">Profile</a></li>
+                    <li><a href="forum.html" class="nav-link">Forum</a></li>
+                    <li><a href="resources.html" class="nav-link">Resources</a></li>
+                    <li><a href="events.html" class="nav-link">Events</a></li>
+                    <li><a href="projects.html" class="nav-link">Projects</a></li>
+                    <li><a href="badges.html" class="nav-link">Badges</a></li>
+                    <li><a href="settings.html" class="nav-link">Settings</a></li>
+                    <li><a href="about.html" class="nav-link">About</a></li>
+                    <li><a href="contact.html" class="nav-link">Contact</a></li>
+                    <li class="nav-divider"></li>
+                    <li><a href="#" class="nav-link logout-btn" id="logoutBtn">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Theme Toggle Button -->
+    <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">
+        <span id="themeIcon">🌙</span>
+    </button>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Hero Section -->
+            <section class="hero">
+                <h1 class="hero-title">Welcome to DevDen</h1>
+                <p class="hero-subtitle">The Developer's Den for South African developers</p>
+                <p class="hero-description">
+                    Connect with fellow developers, share knowledge, showcase your projects, 
+                    and stay updated with the latest tech events in South Africa.
+                </p>
+            </section>
+
+            <!-- Quick Stats -->
+            <section class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">👥</div>
+                    <h3 class="stat-number">1,234</h3>
+                    <p class="stat-label">Developers</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">💬</div>
+                    <h3 class="stat-number">567</h3>
+                    <p class="stat-label">Discussions</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🚀</div>
+                    <h3 class="stat-number">89</h3>
+                    <p class="stat-label">Projects</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">📅</div>
+                    <h3 class="stat-number">12</h3>
+                    <p class="stat-label">Events</p>
+                </div>
+            </section>
+
+            <!-- Features Section -->
+            <section class="features">
+                <h2 class="section-title">What We Offer</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">💬</div>
+                        <h3 class="feature-title">Community Forum</h3>
+                        <p class="feature-description">
+                            Engage in discussions, ask questions, and share your expertise with the community.
+                        </p>
+                        <a href="forum.html" class="feature-link">Visit Forum →</a>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">📚</div>
+                        <h3 class="feature-title">Learning Resources</h3>
+                        <p class="feature-description">
+                            Access tutorials, guides, and scripts to enhance your development skills.
+                        </p>
+                        <a href="resources.html" class="feature-link">Browse Resources →</a>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">📅</div>
+                        <h3 class="feature-title">Local Events</h3>
+                        <p class="feature-description">
+                            Discover meetups, hackathons, and tech events happening across South Africa.
+                        </p>
+                        <a href="events.html" class="feature-link">View Events →</a>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">🏆</div>
+                        <h3 class="feature-title">Showcase Projects</h3>
+                        <p class="feature-description">
+                            Display your work, get feedback, and inspire others with your creations.
+                        </p>
+                        <a href="projects.html" class="feature-link">Explore Projects →</a>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">🎖️</div>
+                        <h3 class="feature-title">Earn Badges</h3>
+                        <p class="feature-description">
+                            Get recognized for your contributions and achievements in the community.
+                        </p>
+                        <a href="badges.html" class="feature-link">See Badges →</a>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">👤</div>
+                        <h3 class="feature-title">Developer Profile</h3>
+                        <p class="feature-description">
+                            Build your developer portfolio and connect with like-minded professionals.
+                        </p>
+                        <a href="profile.html" class="feature-link">View Profile →</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CTA Section -->
+            <section class="cta">
+                <h2 class="cta-title">Ready to Get Started?</h2>
+                <p class="cta-description">
+                    Join our growing community of South African developers today.
+                </p>
+                <div class="cta-buttons">
+                    <a href="profile.html" class="btn btn-primary">Complete Your Profile</a>
+                    <a href="forum.html" class="btn btn-secondary">Join the Discussion</a>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>Powered by <a href="https://brelinx.com" target="_blank" rel="noopener">brelinx.com</a></p>
+            <p class="footer-copyright">&copy; 2024 DevDen. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="../js/global.js"></script>
+    <script src="../js/home.js"></script>
+</body>
+</html>
