@@ -208,12 +208,64 @@
         }
 
         // ===== LOAD USER DATA (If needed) =====
-        function loadUserData() {
+        async function loadUserData() {
             if (window.DevDen && window.DevDen.session) {
                 const user = window.DevDen.session.getSession();
                 
                 if (user) {
-                    // You can update UI with user data here
+                    // Update hero title with personalized greeting
+                    const heroTitle = document.getElementById('heroTitle');
+                    if (heroTitle) {
+                        let displayName = user.displayName || user.username || user.email;
+                        
+                        // If we don't have a good display name, try to fetch user profile
+                        if (!user.displayName && user.sessionToken) {
+                            try {
+                                const BACK4APP_CONFIG = {
+                                    applicationId: '3DpA1rFa6NLxqibZA6at0aktNsqPzwBU2r50JyAf',
+                                    javascriptKey: 'sqrojNjFKJjbsgwu9C1VbnJiWYthwUsjP05IAcEm',
+                                    serverURL: 'https://parseapi.back4app.com'
+                                };
+
+                                const response = await fetch(`${BACK4APP_CONFIG.serverURL}/users/me`, {
+                                    headers: {
+                                        'X-Parse-Application-Id': BACK4APP_CONFIG.applicationId,
+                                        'X-Parse-JavaScript-Key': BACK4APP_CONFIG.javascriptKey,
+                                        'X-Parse-Session-Token': user.sessionToken,
+                                        'Content-Type': 'application/json'
+                                    }
+                                });
+
+                                if (response.ok) {
+                                    const userData = await response.json();
+                                    displayName = userData.displayName || userData.username || user.email;
+                                    
+                                    // Update session with additional data
+                                    const updatedUser = { ...user, displayName: userData.displayName };
+                                    window.DevDen.session.setSession(updatedUser);
+                                }
+                            } catch (error) {
+                                console.log('Could not fetch additional user data:', error);
+                            }
+                        }
+                        
+                        if (displayName) {
+                            // Extract first name if it's an email
+                            let firstName = displayName;
+                            if (displayName.includes('@')) {
+                                firstName = displayName.split('@')[0];
+                            }
+                            // If username starts with @, remove it
+                            if (firstName.startsWith('@')) {
+                                firstName = firstName.substring(1);
+                            }
+                            // Capitalize first letter and clean up
+                            firstName = firstName.charAt(0).toUpperCase() + firstName.slice(1);
+                            
+                            heroTitle.textContent = `Hi, ${firstName}!`;
+                        }
+                    }
+                    
                     console.log('User logged in:', user.email || user.username);
                 }
             }

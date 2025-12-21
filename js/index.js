@@ -118,7 +118,8 @@ loginForm.addEventListener('submit', async (e) => {
             sessionToken: userData.sessionToken,
             userId: userData.objectId,
             email: userData.email || email,
-            username: userData.username
+            username: userData.username,
+            displayName: userData.displayName || userData.username || email.split('@')[0]
         }));
 
         // Redirect to home/dashboard
