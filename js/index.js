@@ -122,7 +122,7 @@ loginForm.addEventListener('submit', async (e) => {
         }));
 
         // Redirect to home/dashboard
-        window.location.href = 'home.html';
+        window.location.href = 'pages/home.html';
         
     } catch (error) {
         console.error('Login error:', error);
@@ -153,7 +153,7 @@ function checkExistingSession() {
             const user = JSON.parse(userData);
             if (user.sessionToken) {
                 // User is already logged in, redirect to home
-                window.location.href = 'home.html';
+                window.location.href = 'pages/home.html';
             }
         } catch (error) {
             // Invalid session data, clear it
