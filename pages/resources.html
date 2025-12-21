@@ -1,1 +1,281 @@
-ECHO is off.
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="DevDen - Resources. Access tutorials, guides, and scripts for developers.">
+    <title>DevDen - Resources</title>
+    <link rel="stylesheet" href="../css/resources.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="home.html">DevDen</a>
+            </div>
+
+            <button class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+
+            <div class="nav-menu" id="navMenu">
+                <ul class="nav-list">
+                    <li><a href="home.html" class="nav-link">Home</a></li>
+                    <li><a href="profile.html" class="nav-link">Profile</a></li>
+                    <li><a href="forum.html" class="nav-link">Forum</a></li>
+                    <li><a href="resources.html" class="nav-link active">Resources</a></li>
+                    <li><a href="events.html" class="nav-link">Events</a></li>
+                    <li><a href="projects.html" class="nav-link">Projects</a></li>
+                    <li><a href="badges.html" class="nav-link">Badges</a></li>
+                    <li><a href="settings.html" class="nav-link">Settings</a></li>
+                    <li><a href="about.html" class="nav-link">About</a></li>
+                    <li><a href="contact.html" class="nav-link">Contact</a></li>
+                    <li class="nav-divider"></li>
+                    <li><a href="#" class="nav-link logout-btn" id="logoutBtn">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Theme Toggle Button -->
+    <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">
+        <svg id="themeIcon" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path class="moon-icon" d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" fill="currentColor"/>
+            <path class="sun-icon" style="display:none;" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill="currentColor"/>
+        </svg>
+    </button>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Resources Header -->
+            <section class="resources-header">
+                <div class="resources-header-content">
+                    <div class="resources-title-section">
+                        <h1 class="resources-title">Learning Resources</h1>
+                        <p class="resources-description">Tutorials, guides, and scripts to enhance your development skills</p>
+                    </div>
+                    <button class="btn btn-primary" id="addResourceBtn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 5v14m-7-7h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        Add Resource
+                    </button>
+                </div>
+            </section>
+
+            <!-- Resource Filters -->
+            <section class="resource-filters">
+                <div class="filter-tabs">
+                    <button class="filter-tab active" data-filter="all">All</button>
+                    <button class="filter-tab" data-filter="tutorial">Tutorials</button>
+                    <button class="filter-tab" data-filter="guide">Guides</button>
+                    <button class="filter-tab" data-filter="script">Scripts</button>
+                    <button class="filter-tab" data-filter="video">Videos</button>
+                    <button class="filter-tab" data-filter="article">Articles</button>
+                </div>
+                <div class="filter-search">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <input type="text" id="searchInput" placeholder="Search resources..." class="search-input">
+                </div>
+            </section>
+
+            <!-- Resource Stats -->
+            <section class="resource-stats">
+                <div class="stat-item">
+                    <span class="stat-value" id="totalResources">0</span>
+                    <span class="stat-label">Total Resources</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value" id="totalTutorials">0</span>
+                    <span class="stat-label">Tutorials</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value" id="totalGuides">0</span>
+                    <span class="stat-label">Guides</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value" id="totalScripts">0</span>
+                    <span class="stat-label">Scripts</span>
+                </div>
+            </section>
+
+            <!-- Loading State -->
+            <div id="loadingState" class="loading-state">
+                <div class="spinner"></div>
+                <p>Loading resources...</p>
+            </div>
+
+            <!-- Resources Grid -->
+            <section class="resources-grid" id="resourcesGrid" style="display: none;">
+                <!-- Resources will be dynamically loaded here -->
+            </section>
+
+            <!-- Empty State -->
+            <div id="emptyState" class="empty-state" style="display: none;">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2V3zM22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7V3z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <p>No resources found</p>
+                <button class="btn btn-primary" id="emptyStateBtn">Add First Resource</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Add Resource Modal -->
+    <div class="modal" id="addResourceModal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h2>Add New Resource</h2>
+                <button class="modal-close" id="closeAddResourceBtn">&times;</button>
+            </div>
+            <form id="addResourceForm" class="modal-body">
+                <div class="form-group">
+                    <label for="resourceTitle">Title</label>
+                    <input type="text" id="resourceTitle" class="form-input" placeholder="Resource title" required>
+                </div>
+                <div class="form-group">
+                    <label for="resourceType">Type</label>
+                    <select id="resourceType" class="form-select" required>
+                        <option value="">Select a type</option>
+                        <option value="tutorial">Tutorial</option>
+                        <option value="guide">Guide</option>
+                        <option value="script">Script</option>
+                        <option value="video">Video</option>
+                        <option value="article">Article</option>
+                        <option value="documentation">Documentation</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="resourceDescription">Description</label>
+                    <textarea id="resourceDescription" class="form-textarea" rows="4" placeholder="Describe this resource..." required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="resourceUrl">URL</label>
+                    <input type="url" id="resourceUrl" class="form-input" placeholder="https://example.com/resource" required>
+                </div>
+                <div class="form-group">
+                    <label for="resourceDifficulty">Difficulty Level</label>
+                    <select id="resourceDifficulty" class="form-select" required>
+                        <option value="">Select difficulty</option>
+                        <option value="beginner">Beginner</option>
+                        <option value="intermediate">Intermediate</option>
+                        <option value="advanced">Advanced</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="resourceTags">Tags (comma-separated)</label>
+                    <input type="text" id="resourceTags" class="form-input" placeholder="javascript, react, web development">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="cancelAddBtn">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Add Resource</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Resource Detail Modal -->
+    <div class="modal" id="resourceDetailModal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h2 id="detailResourceTitle">Resource Title</h2>
+                <button class="modal-close" id="closeDetailBtn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="resource-detail">
+                    <div class="resource-detail-meta">
+                        <div class="resource-badges">
+                            <span class="resource-type-badge" id="detailResourceType">Tutorial</span>
+                            <span class="resource-difficulty-badge" id="detailResourceDifficulty">Beginner</span>
+                        </div>
+                        <div class="resource-author-info">
+                            <div class="author-avatar" id="detailAuthorAvatar">U</div>
+                            <div class="author-details">
+                                <span class="author-name" id="detailAuthorName">Author</span>
+                                <span class="resource-time" id="detailResourceTime">Just now</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="resource-detail-description" id="detailResourceDescription">
+                        Resource description will appear here...
+                    </div>
+                    
+                    <div class="resource-detail-tags" id="detailResourceTags">
+                        <!-- Tags will be added dynamically -->
+                    </div>
+                    
+                    <div class="resource-detail-stats">
+                        <span class="stat-badge">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span id="detailViewCount">0</span> views
+                        </span>
+                        <span class="stat-badge">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span id="detailLikeCount">0</span> likes
+                        </span>
+                    </div>
+                    
+                    <div class="resource-actions">
+                        <a id="visitResourceBtn" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            Visit Resource
+                        </a>
+                        <button id="likeResourceBtn" class="btn btn-secondary">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            Like
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Comments Section -->
+                <div class="comments-section">
+                    <h3 class="comments-heading">Comments (<span id="commentsCount">0</span>)</h3>
+                    
+                    <!-- New Comment Form -->
+                    <form id="newCommentForm" class="comment-form">
+                        <textarea id="commentContent" class="form-textarea" rows="3" placeholder="Share your thoughts..." required></textarea>
+                        <button type="submit" class="btn btn-primary">Comment</button>
+                    </form>
+
+                    <!-- Comments List -->
+                    <div class="comments-list" id="commentsList">
+                        <!-- Comments will be loaded here -->
+                    </div>
+
+                    <!-- Empty Comments State -->
+                    <div id="emptyCommentsState" class="empty-comments-state" style="display: none;">
+                        <p>No comments yet. Be the first to comment!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>Powered by <a href="https://brelinx.com" target="_blank" rel="noopener">brelinx.com</a></p>
+            <p class="footer-copyright">&copy; 2024 DevDen. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="../js/global.js"></script>
+    <script src="../js/resources.js"></script>
+</body>
+</html>
