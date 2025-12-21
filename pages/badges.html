@@ -1,1 +1,326 @@
-ECHO is off.
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="DevDen - Badges. View your achievements and earned badges.">
+    <title>DevDen - Badges</title>
+    <link rel="stylesheet" href="../css/badges.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <!-- Logo/Brand -->
+            <div class="nav-brand">
+                <a href="home.html">DevDen</a>
+            </div>
+
+            <!-- Hamburger Menu Icon -->
+            <button class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+
+            <!-- Navigation Links -->
+            <div class="nav-menu" id="navMenu">
+                <ul class="nav-list">
+                    <li><a href="home.html" class="nav-link">Home</a></li>
+                    <li><a href="profile.html" class="nav-link">Profile</a></li>
+                    <li><a href="forum.html" class="nav-link">Forum</a></li>
+                    <li><a href="resources.html" class="nav-link">Resources</a></li>
+                    <li><a href="events.html" class="nav-link">Events</a></li>
+                    <li><a href="projects.html" class="nav-link">Projects</a></li>
+                    <li><a href="badges.html" class="nav-link active">Badges</a></li>
+                    <li><a href="settings.html" class="nav-link">Settings</a></li>
+                    <li><a href="about.html" class="nav-link">About</a></li>
+                    <li><a href="contact.html" class="nav-link">Contact</a></li>
+                    <li class="nav-divider"></li>
+                    <li><a href="#" class="nav-link logout-btn" id="logoutBtn">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Theme Toggle Button -->
+    <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">
+        <svg id="themeIcon" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path class="moon-icon" d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" fill="currentColor"/>
+            <path class="sun-icon" style="display:none;" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill="currentColor"/>
+        </svg>
+    </button>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            
+            <!-- Page Header -->
+            <div class="page-header">
+                <h1 class="page-title">Badges & Achievements</h1>
+                <p class="page-subtitle">Showcase your contributions and accomplishments</p>
+            </div>
+
+            <!-- Stats Overview -->
+            <div class="stats-overview">
+                <div class="stat-box">
+                    <div class="stat-value" id="earnedCount">8</div>
+                    <div class="stat-label">Earned</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" id="totalCount">24</div>
+                    <div class="stat-label">Total Badges</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" id="progressPercent">33%</div>
+                    <div class="stat-label">Progress</div>
+                </div>
+            </div>
+
+            <!-- Filter Tabs -->
+            <div class="filter-tabs">
+                <button class="filter-tab active" data-filter="all">All Badges</button>
+                <button class="filter-tab" data-filter="earned">Earned</button>
+                <button class="filter-tab" data-filter="locked">Locked</button>
+            </div>
+
+            <!-- Badges Grid -->
+            <div class="badges-grid" id="badgesGrid">
+                
+                <!-- Badge: Welcome -->
+                <div class="badge-card earned" data-category="earned">
+                    <div class="badge-icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="24" cy="24" r="20" fill="var(--emerald)" opacity="0.2"/>
+                            <path d="M24 14v10m0 4h.01M24 44c11.046 0 20-8.954 20-20S35.046 4 24 4 4 12.954 4 24s8.954 20 20 20z" stroke="var(--emerald)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="badge-title">Welcome Aboard</h3>
+                    <p class="badge-description">Created your DevDen account</p>
+                    <div class="badge-date">Earned on Dec 1, 2024</div>
+                </div>
+
+                <!-- Badge: First Post -->
+                <div class="badge-card earned" data-category="earned">
+                    <div class="badge-icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="24" cy="24" r="20" fill="var(--emerald)" opacity="0.2"/>
+                            <path d="M8 12h32M8 24h32M8 36h20" stroke="var(--emerald)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="badge-title">First Post</h3>
+                    <p class="badge-description">Made your first forum post</p>
+                    <div class="badge-date">Earned on Dec 3, 2024</div>
+                </div>
+
+                <!-- Badge: Contributor -->
+                <div class="badge-card earned" data-category="earned">
+                    <div class="badge-icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="24" cy="24" r="20" fill="var(--emerald)" opacity="0.2"/>
+                            <path d="M12 20l10 10 16-16" stroke="var(--emerald)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="badge-title">Contributor</h3>
+                    <p class="badge-description">Posted 10 forum replies</p>
+                    <div class="badge-date">Earned on Dec 8, 2024</div>
+                </div>
+
+                <!-- Badge: Helper -->
+                <div class="badge-card earned" data-category="earned">
+                    <div class="badge-icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="24" cy="24" r="20" fill="var(--emerald)" opacity="0.2"/>
+                            <path d="M24 28c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8zm0 0v12m-8-4h16" stroke="var(--emerald)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="badge-title">Helper</h3>
+                    <p class="badge-description">Received 5 upvotes on your answers</p>
+                    <div class="badge-date">Earned on Dec 10, 2024</div>
+                </div>
+
+                <!-- Badge: Event Attendee -->
+                <div class="badge-card earned" data-category="earned">
+                    <div class="badge-icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="24" cy="24" r="20" fill="var(--emerald)" opacity="0.2"/>
+                            <path d="M32 12h4v32H12V12h4m0-4h16v8H16V8zm8 16h8m-8 8h8" stroke="var(--emerald)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="badge-title">Event Attendee</h3>
+                    <p class="badge-description">Attended your first DevDen event</p>
+                    <div class="badge-date">Earned on Dec 12, 2024</div>
+                </div>
+
+                <!-- Badge: Project Launcher -->
+                <div class="badge-card earned" data-category="earned">
+                    <div class="badge-icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="24" cy="24" r="20" fill="var(--emerald)" opacity="0.2"/>
+                            <path d="M24 8v8m0 8v16m8-24l-8 8-8-8m16 16l-8 8-8-8" stroke="var(--emerald)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="badge-title">Project Launcher</h3>
+                    <p class="badge-description">Shared your first project</p>
+                    <div class="badge-date">Earned on Dec 15, 2024</div>
+                </div>
+
+                <!-- Badge: Code Reviewer -->
+                <div class="badge-card earned" data-category="earned">
+                    <div class="badge-icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="24" cy="24" r="20" fill="var(--emerald)" opacity="0.2"/>
+                            <path d="M16 18l-6 6 6 6m16-12l6 6-6 6M28 12l-8 24" stroke="var(--emerald)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="badge-title">Code Reviewer</h3>
+                    <p class="badge-description">Reviewed 5 community projects</p>
+                    <div class="badge-date">Earned on Dec 18, 2024</div>
+                </div>
+
+                <!-- Badge: Early Adopter -->
+                <div class="badge-card earned" data-category="earned">
+                    <div class="badge-icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="24" cy="24" r="20" fill="var(--emerald)" opacity="0.2"/>
+                            <path d="M24 8l4.95 10.05L40 20l-8 7.8 1.9 11.2L24 33l-9.9 6 1.9-11.2L8 20l11.05-1.95L24 8z" stroke="var(--emerald)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="badge-title">Early Adopter</h3>
+                    <p class="badge-description">Joined DevDen in the first month</p>
+                    <div class="badge-date">Earned on Dec 1, 2024</div>
+                </div>
+
+                <!-- Badge: Active Member (Locked) -->
+                <div class="badge-card locked" data-category="locked">
+                    <div class="badge-icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="24" cy="24" r="20" fill="var(--text-secondary)" opacity="0.1"/>
+                            <path d="M24 8c-8.837 0-16 7.163-16 16s7.163 16 16 16 16-7.163 16-16S32.837 8 24 8zm0 22v-8m0-4h.01" stroke="var(--text-secondary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <div class="lock-icon">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5 10V6a5 5 0 0110 0v4m-12 0h14a1 1 0 011 1v7a1 1 0 01-1 1H4a1 1 0 01-1-1v-7a1 1 0 011-1z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="badge-title">Active Member</h3>
+                    <p class="badge-description">Be active for 30 consecutive days</p>
+                    <div class="badge-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 60%"></div>
+                        </div>
+                        <span class="progress-text">18/30 days</span>
+                    </div>
+                </div>
+
+                <!-- Badge: Mentor (Locked) -->
+                <div class="badge-card locked" data-category="locked">
+                    <div class="badge-icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="24" cy="24" r="20" fill="var(--text-secondary)" opacity="0.1"/>
+                            <path d="M24 12v8l6-4-6-4zm-8 12h24M8 32h32" stroke="var(--text-secondary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <div class="lock-icon">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5 10V6a5 5 0 0110 0v4m-12 0h14a1 1 0 011 1v7a1 1 0 01-1 1H4a1 1 0 01-1-1v-7a1 1 0 011-1z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="badge-title">Mentor</h3>
+                    <p class="badge-description">Receive 50 upvotes on your answers</p>
+                    <div class="badge-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 10%"></div>
+                        </div>
+                        <span class="progress-text">5/50 upvotes</span>
+                    </div>
+                </div>
+
+                <!-- Badge: Prolific Writer (Locked) -->
+                <div class="badge-card locked" data-category="locked">
+                    <div class="badge-icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="24" cy="24" r="20" fill="var(--text-secondary)" opacity="0.1"/>
+                            <path d="M32 8L16 24l8 8L40 16 32 8z" stroke="var(--text-secondary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <div class="lock-icon">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5 10V6a5 5 0 0110 0v4m-12 0h14a1 1 0 011 1v7a1 1 0 01-1 1H4a1 1 0 01-1-1v-7a1 1 0 011-1z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="badge-title">Prolific Writer</h3>
+                    <p class="badge-description">Create 50 forum posts</p>
+                    <div class="badge-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 22%"></div>
+                        </div>
+                        <span class="progress-text">11/50 posts</span>
+                    </div>
+                </div>
+
+                <!-- More locked badges -->
+                <div class="badge-card locked" data-category="locked">
+                    <div class="badge-icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="24" cy="24" r="20" fill="var(--text-secondary)" opacity="0.1"/>
+                            <path d="M24 16v16m8-8H16" stroke="var(--text-secondary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <div class="lock-icon">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5 10V6a5 5 0 0110 0v4m-12 0h14a1 1 0 011 1v7a1 1 0 01-1 1H4a1 1 0 01-1-1v-7a1 1 0 011-1z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="badge-title">Resource Creator</h3>
+                    <p class="badge-description">Upload 10 learning resources</p>
+                    <div class="badge-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 30%"></div>
+                        </div>
+                        <span class="progress-text">3/10 resources</span>
+                    </div>
+                </div>
+
+                <div class="badge-card locked" data-category="locked">
+                    <div class="badge-icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="24" cy="24" r="20" fill="var(--text-secondary)" opacity="0.1"/>
+                            <path d="M24 8l-6 12h12l-6 12v8" stroke="var(--text-secondary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <div class="lock-icon">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5 10V6a5 5 0 0110 0v4m-12 0h14a1 1 0 011 1v7a1 1 0 01-1 1H4a1 1 0 01-1-1v-7a1 1 0 011-1z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="badge-title">Event Organizer</h3>
+                    <p class="badge-description">Host 3 community events</p>
+                    <div class="badge-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%"></div>
+                        </div>
+                        <span class="progress-text">0/3 events</span>
+                    </div>
+                </div>
+
+                <!-- Add more badges as needed -->
+
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>Powered by <a href="https://brelinx.com" target="_blank" rel="noopener">brelinx.com</a></p>
+            <p class="footer-copyright">&copy; 2024 DevDen. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="../js/global.js"></script>
+    <script src="../js/badges.js"></script>
+</body>
+</html>
