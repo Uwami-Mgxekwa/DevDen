@@ -54,12 +54,28 @@
             const toggleIcon = document.getElementById('themeIcon');
             
             if (toggleBtn && toggleIcon) {
-                if (theme === 'dark') {
-                    toggleIcon.textContent = '☀️';
-                    toggleBtn.setAttribute('aria-label', 'Switch to light mode');
+                const moonIcon = toggleIcon.querySelector('.moon-icon');
+                const sunIcon = toggleIcon.querySelector('.sun-icon');
+                
+                if (moonIcon && sunIcon) {
+                    if (theme === 'dark') {
+                        moonIcon.style.display = 'none';
+                        sunIcon.style.display = 'block';
+                        toggleBtn.setAttribute('aria-label', 'Switch to light mode');
+                    } else {
+                        moonIcon.style.display = 'block';
+                        sunIcon.style.display = 'none';
+                        toggleBtn.setAttribute('aria-label', 'Switch to dark mode');
+                    }
                 } else {
-                    toggleIcon.textContent = '🌙';
-                    toggleBtn.setAttribute('aria-label', 'Switch to dark mode');
+                    // Fallback for emoji icons
+                    if (theme === 'dark') {
+                        toggleIcon.textContent = '☀️';
+                        toggleBtn.setAttribute('aria-label', 'Switch to light mode');
+                    } else {
+                        toggleIcon.textContent = '🌙';
+                        toggleBtn.setAttribute('aria-label', 'Switch to dark mode');
+                    }
                 }
             }
         },

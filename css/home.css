@@ -204,6 +204,11 @@ body {
     transition: transform 0.3s ease;
 }
 
+#themeIcon .sun-icon,
+#themeIcon .moon-icon {
+    transition: opacity 0.3s ease;
+}
+
 .theme-toggle:hover #themeIcon {
     transform: rotate(20deg);
 }
@@ -272,8 +277,19 @@ body {
 }
 
 .stat-icon {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 1rem;
+    color: var(--emerald);
+    transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.stat-icon svg {
+    width: 32px;
+    height: 32px;
 }
 
 .stat-number {
@@ -322,8 +338,24 @@ body {
 }
 
 .feature-icon {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 1rem;
+    color: var(--emerald);
+    transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.feature-icon svg {
+    width: 48px;
+    height: 48px;
+}
+
+.feature-card:hover .feature-icon {
+    transform: translateY(-2px);
+    color: var(--emerald-hover);
 }
 
 .feature-title {
