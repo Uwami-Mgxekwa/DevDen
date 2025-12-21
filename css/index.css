@@ -673,3 +673,167 @@ body {
     transition-duration: 0.3s;
     transition-timing-function: ease;
 }
+/* Signup Page Specific Styles */
+
+/* Success Message */
+.success-message {
+    margin-top: 1rem;
+    padding: 0.75rem;
+    font-size: 0.875rem;
+    color: var(--emerald);
+    background-color: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    border-radius: 6px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.dark-mode .success-message {
+    background-color: rgba(52, 211, 153, 0.1);
+    border-color: rgba(52, 211, 153, 0.2);
+}
+
+/* Field Hints */
+.field-hint {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    margin-top: 0.25rem;
+    transition: color 0.2s ease;
+}
+
+/* Checkbox Group */
+.checkbox-group {
+    margin-bottom: 2rem;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: flex-start;
+    cursor: pointer;
+    font-size: 0.875rem;
+    line-height: 1.4;
+    color: var(--text-secondary);
+    margin-bottom: 0;
+}
+
+.checkbox-label input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    width: 0;
+    height: 0;
+}
+
+.checkmark {
+    position: relative;
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    background-color: var(--bg-primary);
+    border: 2px solid var(--border-color);
+    border-radius: 3px;
+    margin-right: 0.75rem;
+    margin-top: 0.125rem;
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+}
+
+.checkbox-label:hover .checkmark {
+    border-color: var(--emerald);
+}
+
+.checkbox-label input:checked ~ .checkmark {
+    background-color: var(--emerald);
+    border-color: var(--emerald);
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+    left: 5px;
+    top: 2px;
+    width: 4px;
+    height: 8px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.checkbox-label input:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Terms and Privacy Links */
+.terms-link,
+.privacy-link {
+    color: var(--emerald);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.terms-link:hover,
+.privacy-link:hover {
+    color: var(--emerald-hover);
+    text-decoration: underline;
+}
+
+/* Input validation states */
+.form-group input.invalid {
+    border-color: var(--error);
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+.form-group input.valid {
+    border-color: var(--emerald);
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+/* Responsive adjustments for signup page */
+@media (max-width: 480px) {
+    .checkbox-label {
+        font-size: 0.813rem;
+    }
+    
+    .checkmark {
+        width: 16px;
+        height: 16px;
+        margin-right: 0.5rem;
+    }
+    
+    .checkmark:after {
+        left: 4px;
+        top: 1px;
+        width: 3px;
+        height: 7px;
+    }
+    
+    .field-hint {
+        font-size: 0.688rem;
+    }
+}
+
+@media (min-width: 1441px) {
+    .checkbox-label {
+        font-size: 1rem;
+    }
+    
+    .checkmark {
+        width: 20px;
+        height: 20px;
+        margin-right: 1rem;
+    }
+    
+    .checkmark:after {
+        left: 6px;
+        top: 2px;
+        width: 5px;
+        height: 10px;
+    }
+    
+    .field-hint {
+        font-size: 0.875rem;
+    }
+}
