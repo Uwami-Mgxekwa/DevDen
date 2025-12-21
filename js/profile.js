@@ -159,7 +159,7 @@
             
             const session = window.DevDen.session.getSession();
             if (!session || !session.sessionToken) {
-                alert('Session expired. Please log in again.');
+                showNotification('Session expired. Please log in again.', 'error');
                 window.location.href = '../index.html';
                 return;
             }
@@ -174,9 +174,12 @@
             const skillsInput = document.getElementById('editSkills').value.trim();
             const skills = skillsInput ? skillsInput.split(',').map(s => s.trim()).filter(s => s) : [];
             
+            // Use correct user ID
+            const userId = session.userId || session.objectId;
+            
             // Update user profile
             try {
-                const response = await fetch(`${BACK4APP_CONFIG.serverURL}/users/${session.objectId}`, {
+                const response = await fetch(`${BACK4APP_CONFIG.serverURL}/users/${userId}`, {
                     method: 'PUT',
                     headers: {
                         'X-Parse-Application-Id': BACK4APP_CONFIG.applicationId,
@@ -199,7 +202,7 @@
                     const updatedUser = await response.json();
                     
                     // Update session
-                    const updatedSession = { ...session, ...updatedUser };
+                    const updatedSession = { ...session, displayName: updatedUser.displayName };
                     window.DevDen.session.setSession(updatedSession);
                     
                     // Reload profile data
@@ -207,15 +210,15 @@
                     
                     closeEditModal();
                     
-                    // Show success message (you can create a toast notification)
-                    alert('Profile updated successfully!');
+                    // Show success notification
+                    showNotification('Profile updated successfully!', 'success');
                 } else {
                     const error = await response.json();
-                    alert('Failed to update profile: ' + (error.error || 'Unknown error'));
+                    showNotification('Failed to update profile: ' + (error.error || 'Unknown error'), 'error');
                 }
             } catch (error) {
                 console.error('Error updating profile:', error);
-                alert('An error occurred while updating your profile. Please try again.');
+                showNotification('An error occurred while updating your profile. Please try again.', 'error');
             }
         });
         
@@ -423,14 +426,9 @@
                     headers['X-Parse-Session-Token'] = session.sessionToken;
                 }
                 
-                const userPointer = {
-                    __type: 'Pointer',
-                    className: '_User',
-                    objectId: userId
-                };
-                
+                // Query using userId field (not user pointer)
                 const response = await fetch(
-                    `${BACK4APP_CONFIG.serverURL}/classes/UserBadge?where=${encodeURIComponent(JSON.stringify({ user: userPointer }))}&include=badge`,
+                    `${BACK4APP_CONFIG.serverURL}/classes/UserBadge?where=${encodeURIComponent(JSON.stringify({ userId: userId }))}&include=badgeDefinition`,
                     { headers }
                 );
                 
@@ -442,15 +440,49 @@
                         badgesGrid.innerHTML = '';
                         
                         data.results.forEach(userBadge => {
-                            const badge = userBadge.badge;
-                            const badgeCard = createBadgeCard(badge);
+                            // Get badge definition or use fallback
+                            const badgeName = userBadge.badgeName || 'Unknown Badge';
+                            const badgeCard = createBadgeCard({
+                                name: badgeName,
+                                description: `Earned on ${new Date(userBadge.createdAt).toLocaleDateString()}`,
+                                icon: getBadgeIcon(badgeName)
+                            });
                             badgesGrid.appendChild(badgeCard);
                         });
+                    } else {
+                        // Show "no badges" message
+                        badgesGrid.innerHTML = '<div class="no-badges"><p>No badges earned yet. Start participating to earn your first badge!</p></div>';
                     }
+                } else {
+                    console.error('Failed to load badges:', response.status);
+                    const badgesGrid = document.getElementById('badgesGrid');
+                    badgesGrid.innerHTML = '<div class="no-badges"><p>Unable to load badges at this time.</p></div>';
                 }
             } catch (error) {
                 console.error('Error loading badges:', error);
+                const badgesGrid = document.getElementById('badgesGrid');
+                badgesGrid.innerHTML = '<div class="no-badges"><p>Error loading badges.</p></div>';
             }
+        }
+
+        // ===== GET BADGE ICON =====
+        function getBadgeIcon(badgeName) {
+            const icons = {
+                'Welcome Aboard': '🎉',
+                'First Post': '📝',
+                'Contributor': '💬',
+                'Helper': '🤝',
+                'Event Attendee': '📅',
+                'Project Launcher': '🚀',
+                'Code Reviewer': '👨‍💻',
+                'Early Adopter': '⭐',
+                'Active Member': '🔥',
+                'Mentor': '🎓',
+                'Prolific Writer': '✍️',
+                'Resource Creator': '📚',
+                'Event Organizer': '🎪'
+            };
+            return icons[badgeName] || '🏆';
         }
         
         // ===== CREATE BADGE CARD =====
