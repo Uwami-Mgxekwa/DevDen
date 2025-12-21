@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="DevDen - Sign up to join the Developer's Den for South African developers.">
+    <title>DevDen - Sign Up</title>
+    <link rel="stylesheet" href="../css/index.css">
+</head>
+<body>
+    <!-- Theme Toggle Button -->
+    <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">
+        <span id="themeIcon">🌙</span>
+    </button>
+    <div class="container">
+        <div class="login-box">
+            <!-- Brand Header -->
+            <div class="brand">
+                <h1>DevDen</h1>
+                <p class="tagline">Join the Developer's Den</p>
+            </div>
+
+            <!-- Signup Form -->
+            <form id="signupForm" class="form">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input 
+                        type="text" 
+                        id="username" 
+                        name="username" 
+                        placeholder="Choose a username"
+                        required
+                        autocomplete="username"
+                        minlength="3"
+                        maxlength="20"
+                    >
+                    <small class="field-hint">3-20 characters, letters, numbers, and underscores only</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        name="email" 
+                        placeholder="your@email.com"
+                        required
+                        autocomplete="email"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        name="password" 
+                        placeholder="Create a strong password"
+                        required
+                        autocomplete="new-password"
+                        minlength="6"
+                    >
+                    <small class="field-hint">At least 6 characters</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input 
+                        type="password" 
+                        id="confirmPassword" 
+                        name="confirmPassword" 
+                        placeholder="Confirm your password"
+                        required
+                        autocomplete="new-password"
+                    >
+                </div>
+
+                <div class="form-group checkbox-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="agreeTerms" required>
+                        <span class="checkmark"></span>
+                        I agree to the <a href="#" class="terms-link">Terms of Service</a> and <a href="#" class="privacy-link">Privacy Policy</a>
+                    </label>
+                </div>
+
+                <button type="submit" class="btn-primary" id="signupBtn">
+                    <span class="btn-text">Create Account</span>
+                    <span class="btn-loader" style="display: none;">Creating...</span>
+                </button>
+
+                <div class="error-message" id="errorMessage" style="display: none;"></div>
+                <div class="success-message" id="successMessage" style="display: none;"></div>
+            </form>
+
+            <!-- Login Link -->
+            <div class="register-section">
+                <p>Already have an account? <a href="../index.html" class="register-link">Log in</a></p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Powered by <a href="https://brelinx.com" target="_blank" rel="noopener">brelinx.com</a></p>
+        </footer>
+    </div>
+
+    <script src="../js/global.js"></script>
+    <script src="../js/signup.js"></script>
+</body>
+</html>
