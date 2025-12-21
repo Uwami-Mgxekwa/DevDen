@@ -1,8 +1,8 @@
 // DevDen Login - index.js
 // Back4App Configuration
 const BACK4APP_CONFIG = {
-    applicationId: 'YOUR_APPLICATION_ID', // Replace with your Back4App Application ID
-    javascriptKey: 'YOUR_JAVASCRIPT_KEY', // Replace with your Back4App JavaScript Key
+    applicationId: '3DpA1rFa6NLxqibZA6at0aktNsqPzwBU2r50JyAf', // Your Back4App Application ID
+    javascriptKey: 'sqrojNjFKJjbsgwu9C1VbnJiWYthwUsjP05IAcEm', // Your Back4App JavaScript Key
     serverURL: 'https://parseapi.back4app.com'
 };
 
