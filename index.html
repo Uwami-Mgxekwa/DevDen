@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="DevDen - The Developer's Den for South African developers. Connect, learn, and showcase.">
+    <title>DevDen - Login</title>
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+    <div class="container">
+        <div class="login-box">
+            <!-- Brand Header -->
+            <div class="brand">
+                <h1>DevDen</h1>
+                <p class="tagline">The Developer's Den</p>
+            </div>
+
+            <!-- Login Form -->
+            <form id="loginForm" class="form">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        name="email" 
+                        placeholder="your@email.com"
+                        required
+                        autocomplete="email"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        name="password" 
+                        placeholder="Enter your password"
+                        required
+                        autocomplete="current-password"
+                    >
+                </div>
+
+                <div class="form-footer">
+                    <a href="#" class="forgot-link" id="forgotPassword">Forgot password?</a>
+                </div>
+
+                <button type="submit" class="btn-primary" id="loginBtn">
+                    <span class="btn-text">Log In</span>
+                    <span class="btn-loader" style="display: none;">Loading...</span>
+                </button>
+
+                <div class="error-message" id="errorMessage" style="display: none;"></div>
+            </form>
+
+            <!-- Register Link -->
+            <div class="register-section">
+                <p>Don't have an account? <a href="register.html" class="register-link">Sign up</a></p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Powered by <a href="https://brelinx.com" target="_blank" rel="noopener">brelinx.com</a></p>
+        </footer>
+    </div>
+
+    <script src="js/index.js"></script>
+</body>
+</html>
