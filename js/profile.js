@@ -241,7 +241,14 @@
                     headers: {
                         'X-Parse-Application-Id': BACK4APP_CONFIG.applicationId,
                         'X-Parse-JavaScript-Key': BACK4APP_CONFIG.javascriptKey,
-                        'X-Parse-
+                        'X-Parse-Session-Token': session.sessionToken,
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                if (response.ok) {
+                    currentUser = await response.json();
+                    
                     // Update UI with user data
                     updateProfileUI(currentUser);
                     
