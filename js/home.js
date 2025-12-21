@@ -152,42 +152,61 @@
             lastScroll = currentScroll;
         });
         
-        // ===== STATS COUNTER ANIMATION (Optional Enhancement) =====
-        function animateCounter(element, target, duration = 2000) {
-            let start = 0;
-            const increment = target / (duration / 16); // 60 FPS
-            
-            const timer = setInterval(() => {
-                start += increment;
-                if (start >= target) {
-                    element.textContent = target.toLocaleString();
-                    clearInterval(timer);
-                } else {
-                    element.textContent = Math.floor(start).toLocaleString();
+        // ===== LOAD STATS FROM DATABASE =====
+        async function loadStats() {
+            try {
+                // Back4App configuration (same as login)
+                const BACK4APP_CONFIG = {
+                    applicationId: '3DpA1rFa6NLxqibZA6at0aktNsqPzwBU2r50JyAf',
+                    javascriptKey: 'sqrojNjFKJjbsgwu9C1VbnJiWYthwUsjP05IAcEm',
+                    serverURL: 'https://parseapi.back4app.com'
+                };
+
+                // Get user session for authenticated requests
+                const session = window.DevDen.session.getSession();
+                const headers = {
+                    'X-Parse-Application-Id': BACK4APP_CONFIG.applicationId,
+                    'X-Parse-JavaScript-Key': BACK4APP_CONFIG.javascriptKey,
+                    'Content-Type': 'application/json'
+                };
+
+                if (session && session.sessionToken) {
+                    headers['X-Parse-Session-Token'] = session.sessionToken;
                 }
-            }, 16);
+
+                // Fetch stats from different collections
+                const [usersResponse, discussionsResponse, projectsResponse, eventsResponse] = await Promise.all([
+                    // Count users
+                    fetch(`${BACK4APP_CONFIG.serverURL}/classes/_User?count=1&limit=0`, { headers }),
+                    // Count discussions (you'll need to create these classes in Back4App)
+                    fetch(`${BACK4APP_CONFIG.serverURL}/classes/Discussion?count=1&limit=0`, { headers }),
+                    // Count projects
+                    fetch(`${BACK4APP_CONFIG.serverURL}/classes/Project?count=1&limit=0`, { headers }),
+                    // Count events
+                    fetch(`${BACK4APP_CONFIG.serverURL}/classes/Event?count=1&limit=0`, { headers })
+                ]);
+
+                // Parse responses
+                const users = await usersResponse.json();
+                const discussions = await discussionsResponse.json();
+                const projects = await projectsResponse.json();
+                const events = await eventsResponse.json();
+
+                // Update stat numbers in the DOM
+                const statNumbers = document.querySelectorAll('.stat-number');
+                if (statNumbers.length >= 4) {
+                    statNumbers[0].textContent = users.count || 0; // Developers
+                    statNumbers[1].textContent = discussions.count || 0; // Discussions
+                    statNumbers[2].textContent = projects.count || 0; // Projects
+                    statNumbers[3].textContent = events.count || 0; // Events
+                }
+
+            } catch (error) {
+                console.error('Error loading stats:', error);
+                // Keep default values if API fails
+            }
         }
-        
-        // Animate stats when they come into view
-        const statNumbers = document.querySelectorAll('.stat-number');
-        const observerOptions = {
-            threshold: 0.5,
-            rootMargin: '0px'
-        };
-        
-        const observer = new IntersectionObserver(function(entries) {
-            entries.forEach(entry => {
-                if (entry.isIntersecting && !entry.target.dataset.animated) {
-                    const target = parseInt(entry.target.textContent.replace(/,/g, ''));
-                    entry.target.textContent = '0';
-                    animateCounter(entry.target, target);
-                    entry.target.dataset.animated = 'true';
-                }
-            });
-        }, observerOptions);
-        
-        statNumbers.forEach(stat => observer.observe(stat));
-        
+
         // ===== LOAD USER DATA (If needed) =====
         function loadUserData() {
             if (window.DevDen && window.DevDen.session) {
@@ -201,6 +220,9 @@
         }
         
         loadUserData();
+        
+        // Load stats from database
+        loadStats();
         
     });
     
