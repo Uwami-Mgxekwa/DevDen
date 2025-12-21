@@ -196,23 +196,223 @@
         }
         
         // ===== LOAD USER BADGES DATA =====
-        function loadUserBadges() {
-            // In production, fetch from API
-            // For now, badges are hardcoded in HTML
-            
-            const savedBadges = localStorage.getItem('devden_badges');
-            if (savedBadges) {
-                try {
-                    const badgeData = JSON.parse(savedBadges);
-                    console.log('User badges loaded:', badgeData);
-                    // You can update the DOM based on saved badge data
-                } catch (e) {
-                    console.error('Error loading badge data:', e);
+        async function loadUserBadges() {
+            try {
+                // Back4App configuration
+                const BACK4APP_CONFIG = {
+                    applicationId: '3DpA1rFa6NLxqibZA6at0aktNsqPzwBU2r50JyAf',
+                    javascriptKey: 'sqrojNjFKJjbsgwu9C1VbnJiWYthwUsjP05IAcEm',
+                    serverURL: 'https://parseapi.back4app.com'
+                };
+
+                // Get user session
+                const session = window.DevDen.session.getSession();
+                if (!session || !session.sessionToken) {
+                    console.log('No user session found');
+                    return;
                 }
+
+                const headers = {
+                    'X-Parse-Application-Id': BACK4APP_CONFIG.applicationId,
+                    'X-Parse-JavaScript-Key': BACK4APP_CONFIG.javascriptKey,
+                    'X-Parse-Session-Token': session.sessionToken,
+                    'Content-Type': 'application/json'
+                };
+
+                // Fetch user's badge data and progress
+                const [badgeDefinitionsResponse, userBadgesResponse, userStatsResponse] = await Promise.all([
+                    // Get all available badge definitions
+                    fetch(`${BACK4APP_CONFIG.serverURL}/classes/BadgeDefinition`, { headers }),
+                    // Get user's earned badges
+                    fetch(`${BACK4APP_CONFIG.serverURL}/classes/UserBadge?where=${encodeURIComponent(JSON.stringify({userId: session.userId}))}`, { headers }),
+                    // Get user statistics for progress calculation
+                    fetch(`${BACK4APP_CONFIG.serverURL}/classes/UserStats?where=${encodeURIComponent(JSON.stringify({userId: session.userId}))}`, { headers })
+                ]);
+
+                const badgeDefinitions = await badgeDefinitionsResponse.json();
+                const userBadges = await userBadgesResponse.json();
+                const userStats = await userStatsResponse.json();
+
+                // Process and render badges
+                renderBadges(badgeDefinitions.results || [], userBadges.results || [], userStats.results?.[0] || {});
+
+            } catch (error) {
+                console.error('Error loading badges:', error);
+                // Keep existing hardcoded badges if API fails
+                updateStats();
             }
         }
         
         loadUserBadges();
+
+        // ===== RENDER BADGES FROM API DATA =====
+        function renderBadges(badgeDefinitions, userBadges, userStats) {
+            const badgesGrid = document.getElementById('badgesGrid');
+            if (!badgesGrid) return;
+
+            // Create a map of earned badges for quick lookup
+            const earnedBadgesMap = new Map();
+            userBadges.forEach(badge => {
+                earnedBadgesMap.set(badge.badgeId, badge);
+            });
+
+            // Clear existing badges
+            badgesGrid.innerHTML = '';
+
+            // Render each badge
+            badgeDefinitions.forEach(badgeDef => {
+                const isEarned = earnedBadgesMap.has(badgeDef.objectId);
+                const earnedBadge = earnedBadgesMap.get(badgeDef.objectId);
+                
+                const badgeCard = createBadgeCard(badgeDef, isEarned, earnedBadge, userStats);
+                badgesGrid.appendChild(badgeCard);
+            });
+
+            // Update statistics
+            updateStats();
+        }
+
+        // ===== CREATE BADGE CARD ELEMENT =====
+        function createBadgeCard(badgeDef, isEarned, earnedBadge, userStats) {
+            const card = document.createElement('div');
+            card.className = `badge-card ${isEarned ? 'earned' : 'locked'}`;
+            card.setAttribute('data-category', isEarned ? 'earned' : 'locked');
+
+            const iconColor = isEarned ? 'var(--emerald)' : 'var(--text-secondary)';
+            const iconOpacity = isEarned ? '0.2' : '0.1';
+
+            let progressHTML = '';
+            let lockIconHTML = '';
+
+            if (!isEarned) {
+                // Calculate progress based on badge requirements
+                const progress = calculateBadgeProgress(badgeDef, userStats);
+                
+                lockIconHTML = `
+                    <div class="lock-icon">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5 10V6a5 5 0 0110 0v4m-12 0h14a1 1 0 011 1v7a1 1 0 01-1 1H4a1 1 0 01-1-1v-7a1 1 0 011-1z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                `;
+
+                progressHTML = `
+                    <div class="badge-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: ${progress.percentage}%"></div>
+                        </div>
+                        <span class="progress-text">${progress.current}/${progress.required} ${progress.unit}</span>
+                    </div>
+                `;
+            } else {
+                const earnedDate = new Date(earnedBadge.createdAt).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric'
+                });
+                progressHTML = `<div class="badge-date">Earned on ${earnedDate}</div>`;
+            }
+
+            card.innerHTML = `
+                <div class="badge-icon">
+                    <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="24" cy="24" r="20" fill="${iconColor}" opacity="${iconOpacity}"/>
+                        ${badgeDef.iconPath || getDefaultIconPath(badgeDef.category)}
+                    </svg>
+                </div>
+                ${lockIconHTML}
+                <h3 class="badge-title">${badgeDef.name}</h3>
+                <p class="badge-description">${badgeDef.description}</p>
+                ${progressHTML}
+            `;
+
+            // Add click event
+            card.addEventListener('click', function() {
+                if (isEarned) {
+                    showBadgeDetails(this);
+                } else {
+                    showBadgeProgress(this);
+                }
+            });
+
+            return card;
+        }
+
+        // ===== CALCULATE BADGE PROGRESS =====
+        function calculateBadgeProgress(badgeDef, userStats) {
+            const requirements = badgeDef.requirements || {};
+            let current = 0;
+            let required = 1;
+            let unit = 'actions';
+
+            switch (badgeDef.type) {
+                case 'posts':
+                    current = userStats.totalPosts || 0;
+                    required = requirements.posts || 1;
+                    unit = 'posts';
+                    break;
+                case 'replies':
+                    current = userStats.totalReplies || 0;
+                    required = requirements.replies || 1;
+                    unit = 'replies';
+                    break;
+                case 'upvotes':
+                    current = userStats.totalUpvotes || 0;
+                    required = requirements.upvotes || 1;
+                    unit = 'upvotes';
+                    break;
+                case 'projects':
+                    current = userStats.totalProjects || 0;
+                    required = requirements.projects || 1;
+                    unit = 'projects';
+                    break;
+                case 'events':
+                    current = userStats.eventsAttended || 0;
+                    required = requirements.events || 1;
+                    unit = 'events';
+                    break;
+                case 'days_active':
+                    current = userStats.consecutiveDays || 0;
+                    required = requirements.days || 1;
+                    unit = 'days';
+                    break;
+                case 'resources':
+                    current = userStats.resourcesShared || 0;
+                    required = requirements.resources || 1;
+                    unit = 'resources';
+                    break;
+                default:
+                    current = 0;
+                    required = 1;
+                    unit = 'actions';
+            }
+
+            const percentage = Math.min(Math.round((current / required) * 100), 100);
+
+            return {
+                current: Math.min(current, required),
+                required,
+                percentage,
+                unit
+            };
+        }
+
+        // ===== GET DEFAULT ICON PATH =====
+        function getDefaultIconPath(category) {
+            const iconPaths = {
+                'welcome': '<path d="M24 14v10m0 4h.01M24 44c11.046 0 20-8.954 20-20S35.046 4 24 4 4 12.954 4 24s8.954 20 20 20z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>',
+                'forum': '<path d="M8 12h32M8 24h32M8 36h20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>',
+                'contribution': '<path d="M12 20l10 10 16-16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>',
+                'helper': '<path d="M24 28c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8zm0 0v12m-8-4h16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>',
+                'events': '<path d="M32 12h4v32H12V12h4m0-4h16v8H16V8zm8 16h8m-8 8h8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>',
+                'projects': '<path d="M24 8v8m0 8v16m8-24l-8 8-8-8m16 16l-8 8-8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>',
+                'code': '<path d="M16 18l-6 6 6 6m16-12l6 6-6 6M28 12l-8 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>',
+                'star': '<path d="M24 8l4.95 10.05L40 20l-8 7.8 1.9 11.2L24 33l-9.9 6 1.9-11.2L8 20l11.05-1.95L24 8z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>',
+                'default': '<path d="M24 8c-8.837 0-16 7.163-16 16s7.163 16 16 16 16-7.163 16-16S32.837 8 24 8zm0 22v-8m0-4h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'
+            };
+            
+            return iconPaths[category] || iconPaths['default'];
+        }
         
         // ===== SAVE BADGE PROGRESS =====
         function saveBadgeProgress() {
