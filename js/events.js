@@ -413,4 +413,152 @@
             eventDate: new Date(document.getElementById('eventDate').value).toISOString(),
             eventTime: document.getElementById('eventTime').value,
             venue: document.getElementById('eventVenue').value,
-            d
+            description: document.getElementById('eventDescription').value,
+            registrationLink: document.getElementById('eventLink').value,
+            createdBy: currentUser ? currentUser.objectId : 'anonymous',
+            attendees: 0
+        };
+
+        try {
+            const response = await fetch(`${BACK4APP_CONFIG.serverURL}/classes/Event`, {
+                method: 'POST',
+                headers: getAuthHeaders(),
+                body: JSON.stringify(formData)
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to create event');
+            }
+
+            const newEvent = await response.json();
+            
+            // Add the new event to our list
+            allEvents.unshift({ ...formData, objectId: newEvent.objectId });
+            
+            closeCreateEventModal();
+            displayEvents(allEvents);
+            
+            alert('Event created successfully!');
+
+        } catch (error) {
+            console.error('Error creating event:', error);
+            alert('Failed to create event. Please try again.');
+        }
+    }
+
+    // ===== UTILITY FUNCTIONS =====
+    function formatDate(date) {
+        const options = { year: 'numeric', month: 'short', day: 'numeric' };
+        return date.toLocaleDateString('en-ZA', options);
+    }
+
+    function formatLocation(location) {
+        const locations = {
+            'johannesburg': 'Johannesburg',
+            'cape-town': 'Cape Town',
+            'durban': 'Durban',
+            'pretoria': 'Pretoria',
+            'port-elizabeth': 'Port Elizabeth',
+            'online': 'Online'
+        };
+        return locations[location] || location;
+    }
+
+    function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+
+    function debounce(func, wait) {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
+    }
+
+    // ===== SAMPLE EVENTS (Fallback) =====
+    function getSampleEvents() {
+        const today = new Date();
+        return [
+            {
+                objectId: 'sample1',
+                title: 'React Developer Meetup',
+                eventType: 'meetup',
+                location: 'johannesburg',
+                eventDate: new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000).toISOString(),
+                eventTime: '18:00',
+                venue: 'WeWork Sandton',
+                description: 'Join us for an evening of React discussions, networking, and pizza! We\'ll be covering React 19 features and best practices.',
+                registrationLink: 'https://example.com',
+                attendees: 45
+            },
+            {
+                objectId: 'sample2',
+                title: 'AI & Machine Learning Workshop',
+                eventType: 'workshop',
+                location: 'cape-town',
+                eventDate: new Date(today.getTime() + 14 * 24 * 60 * 60 * 1000).toISOString(),
+                eventTime: '09:00',
+                venue: 'UCT Innovation Hub',
+                description: 'Hands-on workshop covering the fundamentals of machine learning with Python and TensorFlow.',
+                registrationLink: 'https://example.com',
+                attendees: 30
+            },
+            {
+                objectId: 'sample3',
+                title: 'DevOps Conference 2025',
+                eventType: 'conference',
+                location: 'johannesburg',
+                eventDate: new Date(today.getTime() + 30 * 24 * 60 * 60 * 1000).toISOString(),
+                eventTime: '08:00',
+                venue: 'Sandton Convention Centre',
+                description: 'South Africa\'s premier DevOps conference featuring international speakers and local experts.',
+                registrationLink: 'https://example.com',
+                attendees: 250
+            },
+            {
+                objectId: 'sample4',
+                title: 'Hackathon: Build for Good',
+                eventType: 'hackathon',
+                location: 'durban',
+                eventDate: new Date(today.getTime() + 21 * 24 * 60 * 60 * 1000).toISOString(),
+                eventTime: '10:00',
+                venue: 'Durban ICC',
+                description: '48-hour hackathon focused on creating solutions for social impact. Prizes worth R50,000!',
+                registrationLink: 'https://example.com',
+                attendees: 120
+            },
+            {
+                objectId: 'sample5',
+                title: 'Web Development Fundamentals',
+                eventType: 'webinar',
+                location: 'online',
+                eventDate: new Date(today.getTime() + 3 * 24 * 60 * 60 * 1000).toISOString(),
+                eventTime: '19:00',
+                venue: 'Zoom',
+                description: 'Free online webinar covering HTML, CSS, and JavaScript basics for beginners.',
+                registrationLink: 'https://example.com',
+                attendees: 85
+            },
+            {
+                objectId: 'sample6',
+                title: 'Python User Group Monthly Meetup',
+                eventType: 'meetup',
+                location: 'pretoria',
+                eventDate: new Date(today.getTime() + 10 * 24 * 60 * 60 * 1000).toISOString(),
+                eventTime: '18:30',
+                venue: 'The Innovation Hub',
+                description: 'Monthly gathering of Python enthusiasts. This month: async programming and FastAPI.',
+                registrationLink: 'https://example.com',
+                attendees: 35
+            }
+        ];
+    }
+
+})();
