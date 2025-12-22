@@ -1,1 +1,242 @@
-ECHO is off.
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="DevDen - Projects. Showcase your work and discover amazing projects from South African developers.">
+    <title>DevDen - Projects</title>
+    <link rel="stylesheet" href="../css/projects.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <!-- Logo/Brand -->
+            <div class="nav-brand">
+                <a href="home.html">DevDen</a>
+            </div>
+
+            <!-- Hamburger Menu Icon -->
+            <button class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+
+            <!-- Navigation Links -->
+            <div class="nav-menu" id="navMenu">
+                <ul class="nav-list">
+                    <li><a href="home.html" class="nav-link">Home</a></li>
+                    <li><a href="profile.html" class="nav-link">Profile</a></li>
+                    <li><a href="forum.html" class="nav-link">Forum</a></li>
+                    <li><a href="resources.html" class="nav-link">Resources</a></li>
+                    <li><a href="events.html" class="nav-link">Events</a></li>
+                    <li><a href="projects.html" class="nav-link active">Projects</a></li>
+                    <li><a href="badges.html" class="nav-link">Badges</a></li>
+                    <li><a href="settings.html" class="nav-link">Settings</a></li>
+                    <li><a href="about.html" class="nav-link">About</a></li>
+                    <li><a href="contact.html" class="nav-link">Contact</a></li>
+                    <li class="nav-divider"></li>
+                    <li><a href="#" class="nav-link logout-btn" id="logoutBtn">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Theme Toggle Button -->
+    <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">
+        <svg id="themeIcon" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path class="moon-icon" d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" fill="currentColor"/>
+            <path class="sun-icon" style="display:none;" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill="currentColor"/>
+        </svg>
+    </button>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Page Header -->
+            <section class="page-header">
+                <h1 class="page-title">Project Showcase</h1>
+                <p class="page-description">
+                    Discover amazing projects built by South African developers, get inspired, and share your own work
+                </p>
+            </section>
+
+            <!-- Filter and Search Section -->
+            <section class="filters-section">
+                <div class="search-bar">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <input type="text" id="searchInput" placeholder="Search projects..." class="search-input">
+                </div>
+
+                <div class="filter-controls">
+                    <select id="categoryFilter" class="filter-select">
+                        <option value="all">All Categories</option>
+                        <option value="web">Web Development</option>
+                        <option value="mobile">Mobile Apps</option>
+                        <option value="ai-ml">AI & Machine Learning</option>
+                        <option value="game">Game Development</option>
+                        <option value="data">Data Science</option>
+                        <option value="iot">IoT & Hardware</option>
+                        <option value="blockchain">Blockchain</option>
+                        <option value="other">Other</option>
+                    </select>
+
+                    <select id="techFilter" class="filter-select">
+                        <option value="all">All Technologies</option>
+                        <option value="javascript">JavaScript</option>
+                        <option value="python">Python</option>
+                        <option value="java">Java</option>
+                        <option value="react">React</option>
+                        <option value="nodejs">Node.js</option>
+                        <option value="angular">Angular</option>
+                        <option value="vue">Vue.js</option>
+                        <option value="django">Django</option>
+                        <option value="flutter">Flutter</option>
+                        <option value="react-native">React Native</option>
+                    </select>
+
+                    <select id="sortFilter" class="filter-select">
+                        <option value="recent">Most Recent</option>
+                        <option value="likes">Most Liked</option>
+                        <option value="views">Most Viewed</option>
+                        <option value="oldest">Oldest First</option>
+                    </select>
+
+                    <button id="addProjectBtn" class="btn-create">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 5v14m7-7H5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                        Add Project
+                    </button>
+                </div>
+            </section>
+
+            <!-- View Toggle -->
+            <section class="view-toggle-section">
+                <div class="view-toggle">
+                    <button id="gridViewBtn" class="view-btn active" aria-label="Grid view">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="3" y="3" width="7" height="7" stroke="currentColor" stroke-width="2" rx="1"/>
+                            <rect x="14" y="3" width="7" height="7" stroke="currentColor" stroke-width="2" rx="1"/>
+                            <rect x="3" y="14" width="7" height="7" stroke="currentColor" stroke-width="2" rx="1"/>
+                            <rect x="14" y="14" width="7" height="7" stroke="currentColor" stroke-width="2" rx="1"/>
+                        </svg>
+                    </button>
+                    <button id="listViewBtn" class="view-btn" aria-label="List view">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <line x1="8" y1="6" x2="21" y2="6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            <line x1="8" y1="12" x2="21" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            <line x1="8" y1="18" x2="21" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            <line x1="3" y1="6" x2="4" y2="6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            <line x1="3" y1="12" x2="4" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            <line x1="3" y1="18" x2="4" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="results-count">
+                    <span id="resultsCount">0 projects</span>
+                </div>
+            </section>
+
+            <!-- Projects Grid/List -->
+            <section class="projects-section">
+                <div id="projectsContainer" class="projects-grid">
+                    <!-- Projects will be dynamically loaded here -->
+                    <div class="loading-spinner">
+                        <div class="spinner"></div>
+                        <p>Loading projects...</p>
+                    </div>
+                </div>
+
+                <!-- Empty State -->
+                <div id="emptyState" class="empty-state" style="display: none;">
+                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <h3>No projects found</h3>
+                    <p>Try adjusting your filters or be the first to add a project</p>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Add Project Modal -->
+    <div id="addProjectModal" class="modal" style="display: none;">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add New Project</h2>
+                <button class="modal-close" id="closeModalBtn" aria-label="Close modal">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+            </div>
+
+            <form id="addProjectForm" class="project-form">
+                <div class="form-group">
+                    <label for="projectTitle">Project Title *</label>
+                    <input type="text" id="projectTitle" required placeholder="e.g., TaskMaster Pro">
+                </div>
+
+                <div class="form-group">
+                    <label for="projectDescription">Description *</label>
+                    <textarea id="projectDescription" rows="4" required placeholder="Describe your project..."></textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="projectCategory">Category *</label>
+                        <select id="projectCategory" required>
+                            <option value="">Select category...</option>
+                            <option value="web">Web Development</option>
+                            <option value="mobile">Mobile Apps</option>
+                            <option value="ai-ml">AI & Machine Learning</option>
+                            <option value="game">Game Development</option>
+                            <option value="data">Data Science</option>
+                            <option value="iot">IoT & Hardware</option>
+                            <option value="blockchain">Blockchain</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="projectStatus">Status *</label>
+                        <select id="projectStatus" required>
+                            <option value="">Select status...</option>
+                            <option value="in-progress">In Progress</option>
+                            <option value="completed">Completed</option>
+                            <option value="maintenance">Maintenance</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="projectTechnologies">Technologies (comma-separated) *</label>
+                    <input type="text" id="projectTechnologies" required placeholder="e.g., React, Node.js, MongoDB">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="projectGithub">GitHub Repository URL</label>
+                        <input type="url" id="projectGithub" placeholder="https://github.com/username/repo">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="projectDemo">Live Demo URL</label>
+                        <input type="url" id="projectDemo" placeholder="https://demo.example.com">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="projectImage">Project Image URL</label>
+                    <input type="url" id="projectImage" placeholder="https://example.com/image.jpg">
+                    <small style="color: var(--text-secondary); font-size: 0.813rem; display: block; margin-top: 0.25rem;">
+                        Enter a URL to an image that represents your project
+                    </small>
+                </div>
+
+                <div clas
