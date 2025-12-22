@@ -1,1 +1,377 @@
-ECHO is off.
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="DevDen - About. Learn about our mission to connect South African developers.">
+    <title>DevDen - About</title>
+    <link rel="stylesheet" href="../css/about.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <!-- Logo/Brand -->
+            <div class="nav-brand">
+                <a href="home.html">DevDen</a>
+            </div>
+
+            <!-- Hamburger Menu Icon -->
+            <button class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+
+            <!-- Navigation Links -->
+            <div class="nav-menu" id="navMenu">
+                <ul class="nav-list">
+                    <li><a href="home.html" class="nav-link">Home</a></li>
+                    <li><a href="profile.html" class="nav-link">Profile</a></li>
+                    <li><a href="forum.html" class="nav-link">Forum</a></li>
+                    <li><a href="resources.html" class="nav-link">Resources</a></li>
+                    <li><a href="events.html" class="nav-link">Events</a></li>
+                    <li><a href="projects.html" class="nav-link">Projects</a></li>
+                    <li><a href="badges.html" class="nav-link">Badges</a></li>
+                    <li><a href="settings.html" class="nav-link">Settings</a></li>
+                    <li><a href="about.html" class="nav-link active">About</a></li>
+                    <li><a href="contact.html" class="nav-link">Contact</a></li>
+                    <li class="nav-divider"></li>
+                    <li><a href="#" class="nav-link logout-btn" id="logoutBtn">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Theme Toggle Button -->
+    <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">
+        <svg id="themeIcon" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path class="moon-icon" d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" fill="currentColor"/>
+            <path class="sun-icon" style="display:none;" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill="currentColor"/>
+        </svg>
+    </button>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Hero Section -->
+            <section class="hero">
+                <h1 class="hero-title">About DevDen</h1>
+                <p class="hero-subtitle">The Developer's Den for South African developers</p>
+            </section>
+
+            <!-- Mission Section -->
+            <section class="mission-section">
+                <div class="mission-content">
+                    <h2 class="section-title">Our Mission</h2>
+                    <p class="mission-text">
+                        DevDen exists to empower South African developers by creating a vibrant, inclusive 
+                        community where knowledge flows freely, connections form naturally, and growth happens 
+                        collectively. We believe that every developer, regardless of their experience level, 
+                        has something valuable to contribute and learn.
+                    </p>
+                    <p class="mission-text">
+                        Our platform bridges the gap between isolated coding sessions and collaborative innovation, 
+                        providing the tools, resources, and connections needed to thrive in South Africa's 
+                        growing tech ecosystem.
+                    </p>
+                </div>
+            </section>
+
+            <!-- What We Offer Section -->
+            <section class="features-section">
+                <h2 class="section-title">What We Offer</h2>
+                <div class="features-grid">
+                    <div class="feature-box">
+                        <div class="feature-icon">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M17 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75M13 7a4 4 0 11-8 0 4 4 0 018 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <h3 class="feature-title">Community Forum</h3>
+                        <p class="feature-description">
+                            Connect with fellow developers, ask questions, share insights, and participate in 
+                            meaningful discussions about the technologies and trends shaping our industry.
+                        </p>
+                    </div>
+
+                    <div class="feature-box">
+                        <div class="feature-icon">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2V3zM22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7V3z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <h3 class="feature-title">Learning Resources</h3>
+                        <p class="feature-description">
+                            Access curated tutorials, guides, and scripts created by the community. From beginner 
+                            fundamentals to advanced techniques, find the resources you need to level up your skills.
+                        </p>
+                    </div>
+
+                    <div class="feature-box">
+                        <div class="feature-icon">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z" fill="currentColor"/>
+                            </svg>
+                        </div>
+                        <h3 class="feature-title">Local Events</h3>
+                        <p class="feature-description">
+                            Discover meetups, hackathons, conferences, and networking events happening across 
+                            South Africa. Stay connected with the local tech scene and meet developers in your area.
+                        </p>
+                    </div>
+
+                    <div class="feature-box">
+                        <div class="feature-icon">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <h3 class="feature-title">Project Showcase</h3>
+                        <p class="feature-description">
+                            Share your work, get constructive feedback, and inspire others. Our project showcase 
+                            helps you build your portfolio while contributing to the community's collective knowledge.
+                        </p>
+                    </div>
+
+                    <div class="feature-box">
+                        <div class="feature-icon">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <h3 class="feature-title">Recognition System</h3>
+                        <p class="feature-description">
+                            Earn badges and recognition for your contributions. Whether you're helping others, 
+                            sharing resources, or building amazing projects, your efforts don't go unnoticed.
+                        </p>
+                    </div>
+
+                    <div class="feature-box">
+                        <div class="feature-icon">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2M12 11a4 4 0 100-8 4 4 0 000 8z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <h3 class="feature-title">Developer Profiles</h3>
+                        <p class="feature-description">
+                            Build your developer profile, showcase your skills, connect with like-minded professionals, 
+                            and grow your network within South Africa's tech community.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Partnership Section -->
+            <section class="partnership-section">
+                <div class="partnership-container">
+                    <div class="partnership-content">
+                        <h2 class="section-title">Powered by Brelinx</h2>
+                        <p class="partnership-text">
+                            DevDen is developed and maintained by <a href="https://brelinx.com" target="_blank" rel="noopener" class="brelinx-link">Brelinx</a>, 
+                            a technology company dedicated to building solutions that empower developers and businesses 
+                            across South Africa.
+                        </p>
+                        <p class="partnership-text">
+                            Brelinx brings years of experience in software development, community building, and 
+                            digital innovation to DevDen. Their commitment to quality, user experience, and 
+                            developer-first thinking ensures that DevDen remains a reliable, feature-rich platform 
+                            that serves the needs of South Africa's growing developer community.
+                        </p>
+                        <p class="partnership-text">
+                            Through this partnership, DevDen benefits from Brelinx's technical expertise, 
+                            infrastructure, and ongoing commitment to supporting the South African tech ecosystem. 
+                            Together, we're building more than just a platform—we're fostering a movement.
+                        </p>
+                        <div class="partnership-cta">
+                            <a href="https://brelinx.com" target="_blank" rel="noopener" class="btn btn-primary">
+                                Visit Brelinx
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="partnership-visual">
+                        <div class="visual-card">
+                            <svg width="80" height="80" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <h3>Built with Expertise</h3>
+                            <p>Professional development and infrastructure</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Values Section -->
+            <section class="values-section">
+                <h2 class="section-title">Our Values</h2>
+                <div class="values-grid">
+                    <div class="value-card">
+                        <div class="value-number">01</div>
+                        <h3 class="value-title">Community First</h3>
+                        <p class="value-description">
+                            We prioritize the needs of our community above all else. Every feature, decision, 
+                            and update is made with developers in mind.
+                        </p>
+                    </div>
+
+                    <div class="value-card">
+                        <div class="value-number">02</div>
+                        <h3 class="value-title">Knowledge Sharing</h3>
+                        <p class="value-description">
+                            We believe knowledge should be accessible. We encourage open collaboration and 
+                            the free exchange of ideas and expertise.
+                        </p>
+                    </div>
+
+                    <div class="value-card">
+                        <div class="value-number">03</div>
+                        <h3 class="value-title">Inclusive Growth</h3>
+                        <p class="value-description">
+                            Everyone deserves the opportunity to learn and grow. We create spaces where 
+                            developers of all levels feel welcome and supported.
+                        </p>
+                    </div>
+
+                    <div class="value-card">
+                        <div class="value-number">04</div>
+                        <h3 class="value-title">Local Impact</h3>
+                        <p class="value-description">
+                            We focus on strengthening South Africa's tech ecosystem by connecting local 
+                            developers and promoting local events and opportunities.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FAQ Section -->
+            <section class="faq-section" id="faq">
+                <h2 class="section-title">Frequently Asked Questions</h2>
+                <div class="faq-container">
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span>Who can join DevDen?</span>
+                            <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M19 9l-7 7-7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                        <div class="faq-answer">
+                            <p>
+                                DevDen is open to all developers in South Africa, regardless of experience level. 
+                                Whether you're a student just starting out, a seasoned professional, or somewhere 
+                                in between, you're welcome here.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span>Is DevDen free to use?</span>
+                            <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M19 9l-7 7-7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                        <div class="faq-answer">
+                            <p>
+                                Yes! DevDen is completely free to use. We believe in making developer resources 
+                                and community connections accessible to everyone.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span>How can I contribute to DevDen?</span>
+                            <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M19 9l-7 7-7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                        <div class="faq-answer">
+                            <p>
+                                There are many ways to contribute! Share your knowledge in the forum, submit 
+                                tutorials and resources, showcase your projects, help organize events, or simply 
+                                engage with and support other community members. Every contribution helps strengthen 
+                                our community.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span>What is Brelinx's role in DevDen?</span>
+                            <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M19 9l-7 7-7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                        <div class="faq-answer">
+                            <p>
+                                Brelinx is the parent company that develops and maintains DevDen. They provide 
+                                the technical infrastructure, ongoing development, and support needed to keep 
+                                the platform running smoothly. Brelinx's expertise ensures DevDen remains a 
+                                reliable, high-quality platform for the South African developer community.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span>How do I earn badges?</span>
+                            <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M19 9l-7 7-7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                        <div class="faq-answer">
+                            <p>
+                                Badges are earned through various activities like posting in the forum, sharing 
+                                resources, attending events, showcasing projects, and helping other community 
+                                members. Check the Badges page to see all available achievements and how to earn them.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span>Can I suggest new features?</span>
+                            <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M19 9l-7 7-7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                        <div class="faq-answer">
+                            <p>
+                                Absolutely! We actively encourage feedback and feature requests. Visit our 
+                                Contact page and select "Feature Request" to share your ideas. We review all 
+                                suggestions and consider them for future updates.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CTA Section -->
+            <section class="cta-section">
+                <h2 class="cta-title">Join the Community</h2>
+                <p class="cta-description">
+                    Be part of South Africa's growing developer ecosystem. Connect, learn, and grow with DevDen.
+                </p>
+                <div class="cta-buttons">
+                    <a href="profile.html" class="btn btn-primary">Complete Your Profile</a>
+                    <a href="forum.html" class="btn btn-secondary">Explore the Forum</a>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>Powered by <a href="https://brelinx.com" target="_blank" rel="noopener">brelinx.com</a></p>
+            <p class="footer-copyright">&copy; 2024 DevDen. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="../js/global.js"></script>
+    <script src="../js/about.js"></script>
+</body>
+</html>
