@@ -1,7 +1,7 @@
 // DevDen Service Worker - PWA Functionality
 // Version 1.0.0
 
-const CACHE_NAME = 'devden-v1.0.2';
+const CACHE_NAME = 'devden-v1.0.3';
 const OFFLINE_URL = 'pages/offline.html';
 
 // Files to cache for offline functionality
@@ -120,29 +120,14 @@ self.addEventListener('fetch', event => {
         return;
     }
     
-    // Handle root URL requests - but don't redirect if already requesting index.html
-    if ((event.request.url === self.location.origin + '/' || 
-         event.request.url === self.location.origin) &&
-        !event.request.url.includes('index.html')) {
-        event.respondWith(
-            caches.match('/index.html').then(response => {
-                if (response) {
-                    return response;
-                }
-                return fetch('/index.html').catch(() => {
-                    return caches.match(OFFLINE_URL);
-                });
-            })
-        );
-        return;
-    }
+    // TEMPORARILY DISABLE ROOT URL HANDLING TO STOP REFRESH LOOP
+    // TODO: Fix this properly later
     
     event.respondWith(
         caches.match(event.request)
             .then(response => {
                 // Return cached version if available
                 if (response) {
-                    console.log('DevDen SW: Serving from cache', event.request.url);
                     return response;
                 }
                 
