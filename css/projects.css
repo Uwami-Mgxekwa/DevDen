@@ -1026,4 +1026,44 @@ body {
     }
 
     .projects-grid {
-        grid
+        grid-template-columns: 1fr;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .form-actions,
+    .project-detail-actions {
+        flex-direction: column;
+    }
+
+    .btn-primary,
+    .btn-secondary,
+    .btn-link {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-header {
+        padding: 1.5rem 0.5rem 2rem;
+    }
+
+    .page-title {
+        font-size: 1.75rem;
+    }
+
+    .project-card-content {
+        padding: 1rem;
+    }
+
+    .project-image {
+        height: 160px;
+    }
+
+    .project-detail-image {
+        height: 200px;
+    }
+}
