@@ -84,16 +84,17 @@
         showInstallPrompt: function() {
             if (isInstalled || !deferredPrompt) return;
 
-            // Create install prompt HTML with CSS-based icon
+            // Determine the correct path for assets based on current location
+            const isInPagesFolder = window.location.pathname.includes('/pages/');
+            const assetsPath = isInPagesFolder ? '../assets/' : 'assets/';
+
+            // Create install prompt HTML with DevDen logo
             const promptHTML = `
                 <div id="pwa-install-prompt" class="pwa-install-prompt">
                     <div class="pwa-prompt-content">
                         <div class="pwa-prompt-header">
-                            <div class="pwa-prompt-icon">
-                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="white"/>
-                                </svg>
-                            </div>
+                            <img src="${assetsPath}android-chrome-192x192.png" alt="DevDen" class="pwa-prompt-icon" 
+                                 onerror="this.onerror=null; this.src='${assetsPath}devden.PNG';">
                             <div class="pwa-prompt-text">
                                 <h3>Install DevDen</h3>
                                 <p>Get the full app experience with offline access and faster loading!</p>
