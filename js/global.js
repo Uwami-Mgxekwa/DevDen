@@ -212,6 +212,15 @@
         
         // Utility: Show toast notification
         showToast: function(message, type = 'info') {
+            // Limit to maximum 3 toasts at once
+            const existingToasts = document.querySelectorAll('.toast');
+            if (existingToasts.length >= 3) {
+                // Remove oldest toast
+                const oldestToast = existingToasts[0];
+                oldestToast.classList.remove('show');
+                setTimeout(() => oldestToast.remove(), 300);
+            }
+
             const toast = document.createElement('div');
             toast.className = `toast toast-${type}`;
             
@@ -233,11 +242,11 @@
             // Animate in
             setTimeout(() => toast.classList.add('show'), 10);
             
-            // Remove after 4 seconds
+            // Remove after 3 seconds (reduced from 4)
             setTimeout(() => {
                 toast.classList.remove('show');
                 setTimeout(() => toast.remove(), 300);
-            }, 4000);
+            }, 3000);
         },
         
         // Utility: Debounce function

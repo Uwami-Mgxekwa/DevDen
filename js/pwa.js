@@ -274,25 +274,35 @@
 
         // Check online status
         checkOnlineStatus: function() {
+            let wasOffline = false;
+            
             const updateOnlineStatus = () => {
                 const isOnline = navigator.onLine;
                 document.body.classList.toggle('offline', !isOnline);
                 
-                if (isOnline) {
+                if (isOnline && wasOffline) {
+                    // Only show "back online" if user was actually offline
                     console.log('DevDen PWA: Back online - triggering sync');
                     this.triggerBackgroundSync();
                     this.showOnlineNotification();
-                } else {
+                    wasOffline = false;
+                } else if (!isOnline && !wasOffline) {
+                    // Only show offline notification once
                     console.log('DevDen PWA: Gone offline');
                     this.showOfflineNotification();
+                    wasOffline = true;
                 }
             };
 
             window.addEventListener('online', updateOnlineStatus);
             window.addEventListener('offline', updateOnlineStatus);
             
-            // Initial check
-            updateOnlineStatus();
+            // Initial check - don't show notifications on page load
+            const isOnline = navigator.onLine;
+            document.body.classList.toggle('offline', !isOnline);
+            if (!isOnline) {
+                wasOffline = true;
+            }
         },
 
         // Trigger background sync
@@ -307,6 +317,9 @@
 
         // Show offline notification
         showOfflineNotification: function() {
+            // Remove any existing online notifications first
+            this.removeExistingToasts();
+            
             if (window.DevDen && window.DevDen.showToast) {
                 window.DevDen.showToast('You\'re offline. Changes will sync when back online.', 'warning');
             }
@@ -314,9 +327,21 @@
 
         // Show online notification
         showOnlineNotification: function() {
+            // Remove any existing offline notifications first
+            this.removeExistingToasts();
+            
             if (window.DevDen && window.DevDen.showToast) {
-                window.DevDen.showToast('Back online! Syncing changes...', 'success');
+                window.DevDen.showToast('Connection restored. Syncing changes...', 'success');
             }
+        },
+
+        // Remove existing toast notifications
+        removeExistingToasts: function() {
+            const existingToasts = document.querySelectorAll('.toast');
+            existingToasts.forEach(toast => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 100);
+            });
         }
     };
 
