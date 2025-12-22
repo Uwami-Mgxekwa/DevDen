@@ -603,3 +603,79 @@
             {
                 objectId: 'sample2',
                 title: 'Weather Forecast App',
+                description: 'A beautiful weather application with 7-day forecasts, interactive maps, and location-based weather alerts. Built using modern web technologies.',
+                category: 'web',
+                status: 'in-progress',
+                technologies: ['Vue.js', 'Node.js', 'OpenWeather API', 'Chart.js'],
+                githubUrl: 'https://github.com',
+                demoUrl: '',
+                imageUrl: '',
+                authorName: 'Sarah Weather',
+                likes: 32,
+                views: 180,
+                created: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString()
+            },
+            {
+                objectId: 'sample3',
+                title: 'E-Commerce Mobile App',
+                description: 'A full-featured mobile e-commerce application with payment integration, product catalog, user authentication, and order tracking.',
+                category: 'mobile',
+                status: 'completed',
+                technologies: ['React Native', 'Express.js', 'MongoDB', 'Stripe API'],
+                githubUrl: 'https://github.com',
+                demoUrl: 'https://example.com',
+                imageUrl: '',
+                authorName: 'Mike Commerce',
+                likes: 78,
+                views: 450,
+                created: new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString()
+            },
+            {
+                objectId: 'sample4',
+                title: 'AI Image Classifier',
+                description: 'Machine learning project that classifies images using TensorFlow. Trained on custom dataset with 95% accuracy for wildlife recognition.',
+                category: 'ai-ml',
+                status: 'maintenance',
+                technologies: ['Python', 'TensorFlow', 'OpenCV', 'Flask'],
+                githubUrl: 'https://github.com',
+                demoUrl: '',
+                imageUrl: '',
+                authorName: 'Alex AI',
+                likes: 56,
+                views: 280,
+                created: new Date(Date.now() - 21 * 24 * 60 * 60 * 1000).toISOString()
+            },
+            {
+                objectId: 'sample5',
+                title: 'Blockchain Voting System',
+                description: 'Secure and transparent voting system built on Ethereum blockchain. Features smart contracts, voter verification, and real-time results.',
+                category: 'blockchain',
+                status: 'completed',
+                technologies: ['Solidity', 'Web3.js', 'React', 'Ethereum'],
+                githubUrl: 'https://github.com',
+                demoUrl: 'https://example.com',
+                imageUrl: '',
+                authorName: 'Chris Blockchain',
+                likes: 89,
+                views: 520,
+                created: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString()
+            },
+            {
+                objectId: 'sample6',
+                title: 'IoT Home Automation',
+                description: 'Smart home system controlling lights, temperature, and security through mobile app. Uses Arduino and Raspberry Pi for hardware control.',
+                category: 'iot',
+                status: 'in-progress',
+                technologies: ['Arduino', 'Raspberry Pi', 'Python', 'MQTT'],
+                githubUrl: 'https://github.com',
+                demoUrl: '',
+                imageUrl: '',
+                authorName: 'Emma IoT',
+                likes: 41,
+                views: 195,
+                created: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString()
+            }
+        ];
+    }
+
+})();
