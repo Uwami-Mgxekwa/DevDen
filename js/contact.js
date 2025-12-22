@@ -377,4 +377,55 @@
         // ===== AUTO-FILL USER DATA =====
         async function autoFillUserData() {
             if (window.DevDen && window.DevDen.session) {
-                const user = window.DevDen.session.
+                const user = window.DevDen.session.getSession();
+                
+                if (user) {
+                    // Fill email field
+                    const emailInput = document.getElementById('email');
+                    if (emailInput && user.email) {
+                        emailInput.value = user.email;
+                    }
+                    
+                    // Try to get display name
+                    const nameInput = document.getElementById('name');
+                    if (nameInput && user.sessionToken) {
+                        try {
+                            const response = await fetch(`${BACK4APP_CONFIG.serverURL}/users/me`, {
+                                headers: {
+                                    'X-Parse-Application-Id': BACK4APP_CONFIG.applicationId,
+                                    'X-Parse-JavaScript-Key': BACK4APP_CONFIG.javascriptKey,
+                                    'X-Parse-Session-Token': user.sessionToken,
+                                    'Content-Type': 'application/json'
+                                }
+                            });
+                            
+                            if (response.ok) {
+                                const userData = await response.json();
+                                const displayName = userData.displayName || userData.username || user.username;
+                                if (displayName) {
+                                    nameInput.value = displayName;
+                                }
+                            }
+                        } catch (error) {
+                            console.log('Could not fetch user data:', error);
+                        }
+                    }
+                }
+            }
+        }
+        
+        autoFillUserData();
+        
+        // ===== NAVBAR SCROLL EFFECT =====
+        const navbar = document.querySelector('.navbar');
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 10) {
+                navbar.style.boxShadow = '0 2px 8px var(--shadow)';
+            } else {
+                navbar.style.boxShadow = 'none';
+            }
+        });
+        
+    });
+    
+})();
