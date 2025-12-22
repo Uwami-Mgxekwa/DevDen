@@ -1,68 +1,68 @@
 // DevDen Service Worker - PWA Functionality
 // Version 1.0.0
 
-const CACHE_NAME = 'devden-v1.0.3';
-const OFFLINE_URL = 'pages/offline.html';
+const CACHE_NAME = 'devden-v1.0.4';
+const OFFLINE_URL = '/DevDen/pages/offline.html';
 
 // Files to cache for offline functionality
 const CACHE_URLS = [
     // Root files
-    '/index.html',
+    '/DevDen/index.html',
     
     // Pages
-    '/pages/home.html',
-    '/pages/projects.html',
-    '/pages/profile.html',
-    '/pages/forum.html',
-    '/pages/resources.html',
-    '/pages/events.html',
-    '/pages/badges.html',
-    '/pages/settings.html',
-    '/pages/about.html',
-    '/pages/contact.html',
-    '/pages/signup.html',
-    '/pages/offline.html',
+    '/DevDen/pages/home.html',
+    '/DevDen/pages/projects.html',
+    '/DevDen/pages/profile.html',
+    '/DevDen/pages/forum.html',
+    '/DevDen/pages/resources.html',
+    '/DevDen/pages/events.html',
+    '/DevDen/pages/badges.html',
+    '/DevDen/pages/settings.html',
+    '/DevDen/pages/about.html',
+    '/DevDen/pages/contact.html',
+    '/DevDen/pages/signup.html',
+    '/DevDen/pages/offline.html',
     
     // CSS Files
-    '/css/global.css',
-    '/css/index.css',
-    '/css/home.css',
-    '/css/projects.css',
-    '/css/profile.css',
-    '/css/forum.css',
-    '/css/resources.css',
-    '/css/events.css',
-    '/css/badges.css',
-    '/css/settings.css',
-    '/css/about.css',
-    '/css/contact.css',
-    '/css/signup.css',
-    '/css/pwa.css',
+    '/DevDen/css/global.css',
+    '/DevDen/css/index.css',
+    '/DevDen/css/home.css',
+    '/DevDen/css/projects.css',
+    '/DevDen/css/profile.css',
+    '/DevDen/css/forum.css',
+    '/DevDen/css/resources.css',
+    '/DevDen/css/events.css',
+    '/DevDen/css/badges.css',
+    '/DevDen/css/settings.css',
+    '/DevDen/css/about.css',
+    '/DevDen/css/contact.css',
+    '/DevDen/css/signup.css',
+    '/DevDen/css/pwa.css',
     
     // JavaScript Files
-    '/js/global.js',
-    '/js/index.js',
-    '/js/home.js',
-    '/js/projects.js',
-    '/js/profile.js',
-    '/js/forum.js',
-    '/js/resources.js',
-    '/js/events.js',
-    '/js/badges.js',
-    '/js/settings.js',
-    '/js/about.js',
-    '/js/contact.js',
-    '/js/signup.js',
-    '/js/pwa.js',
+    '/DevDen/js/global.js',
+    '/DevDen/js/index.js',
+    '/DevDen/js/home.js',
+    '/DevDen/js/projects.js',
+    '/DevDen/js/profile.js',
+    '/DevDen/js/forum.js',
+    '/DevDen/js/resources.js',
+    '/DevDen/js/events.js',
+    '/DevDen/js/badges.js',
+    '/DevDen/js/settings.js',
+    '/DevDen/js/about.js',
+    '/DevDen/js/contact.js',
+    '/DevDen/js/signup.js',
+    '/DevDen/js/pwa.js',
     
     // Icons and Assets
-    '/assets/favicon.ico',
-    '/assets/favicon-32x32.png',
-    '/assets/apple-touch-icon-180x180.png',
-    '/assets/android-chrome-192x192.png',
-    '/assets/android-chrome-512x512.png',
-    '/assets/devden.PNG',
-    '/assets/site.webmanifest'
+    '/DevDen/assets/favicon.ico',
+    '/DevDen/assets/favicon-32x32.png',
+    '/DevDen/assets/apple-touch-icon-180x180.png',
+    '/DevDen/assets/android-chrome-192x192.png',
+    '/DevDen/assets/android-chrome-512x512.png',
+    '/DevDen/assets/devden.PNG',
+    '/DevDen/assets/site.webmanifest'
 ];
 
 // Install Event - Cache resources

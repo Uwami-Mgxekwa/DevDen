@@ -2,8 +2,8 @@
     "name": "DevDen - The Developer's Den",
     "short_name": "DevDen",
     "description": "The Developer's Den for South African developers. Connect, learn, and showcase your projects.",
-    "start_url": "/index.html",
-    "scope": "/",
+    "start_url": "/DevDen/index.html",
+    "scope": "/DevDen/",
     "display": "standalone",
     "orientation": "portrait-primary",
     "theme_color": "#10B981",
@@ -46,7 +46,7 @@
             "name": "Projects",
             "short_name": "Projects",
             "description": "Browse and showcase developer projects",
-            "url": "/pages/projects.html",
+            "url": "/DevDen/pages/projects.html",
             "icons": [
                 {
                     "src": "android-chrome-192x192.png",
@@ -58,7 +58,7 @@
             "name": "Forum",
             "short_name": "Forum",
             "description": "Join developer discussions",
-            "url": "/pages/forum.html",
+            "url": "/DevDen/pages/forum.html",
             "icons": [
                 {
                     "src": "android-chrome-192x192.png",
@@ -70,7 +70,7 @@
             "name": "Profile",
             "short_name": "Profile",
             "description": "Manage your developer profile",
-            "url": "/pages/profile.html",
+            "url": "/DevDen/pages/profile.html",
             "icons": [
                 {
                     "src": "android-chrome-192x192.png",
