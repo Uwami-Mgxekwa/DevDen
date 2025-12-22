@@ -293,10 +293,10 @@
                 statusEl.innerHTML = '<div class="pulse"></div><span>Online</span>';
                 statusEl.classList.add('online');
                 
-                // Auto-reload when back online
-                setTimeout(() => {
-                    window.location.reload();
-                }, 1000);
+                // Don't auto-reload immediately - give user control
+                // setTimeout(() => {
+                //     window.location.reload();
+                // }, 1000);
             } else {
                 statusEl.innerHTML = '<div class="pulse"></div><span>Offline</span>';
                 statusEl.classList.remove('online');
