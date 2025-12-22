@@ -352,9 +352,9 @@
 
     // Initialize when DOM is ready
     document.addEventListener('DOMContentLoaded', () => {
-        // Check if prompt was recently dismissed
+        // Check if prompt was recently dismissed (5 minutes for testing)
         const dismissed = localStorage.getItem('pwa-prompt-dismissed');
-        if (dismissed && (Date.now() - dismissed) < 24 * 60 * 60 * 1000) {
+        if (dismissed && (Date.now() - dismissed) < 5 * 60 * 1000) { // 5 minutes instead of 24 hours
             console.log('DevDen PWA: Install prompt recently dismissed');
             return;
         }
