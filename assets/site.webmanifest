@@ -2,7 +2,7 @@
     "name": "DevDen - The Developer's Den",
     "short_name": "DevDen",
     "description": "The Developer's Den for South African developers. Connect, learn, and showcase your projects.",
-    "start_url": "/",
+    "start_url": "/index.html",
     "scope": "/",
     "display": "standalone",
     "orientation": "portrait-primary",

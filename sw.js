@@ -7,7 +7,6 @@ const OFFLINE_URL = 'pages/offline.html';
 // Files to cache for offline functionality
 const CACHE_URLS = [
     // Root files
-    '/',
     '/index.html',
     
     // Pages
@@ -38,6 +37,7 @@ const CACHE_URLS = [
     '/css/about.css',
     '/css/contact.css',
     '/css/signup.css',
+    '/css/pwa.css',
     
     // JavaScript Files
     '/js/global.js',
