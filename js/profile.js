@@ -449,7 +449,14 @@
                 document.getElementById('statPosts').textContent = posts.count || 0;
                 document.getElementById('statComments').textContent = comments.count || 0;
                 document.getElementById('statProjects').textContent = projects.count || 0;
-                document.getElementById('statBadges').textContent = badges.count || 0;
+                
+                // For badges, ensure at least 1 if user is logged in (Welcome Aboard badge)
+                let badgeCount = badges.count || 0;
+                if (badgeCount === 0 && session && session.sessionToken) {
+                    // User should have at least the Welcome Aboard badge
+                    badgeCount = 1;
+                }
+                document.getElementById('statBadges').textContent = badgeCount;
                 
             } catch (error) {
                 console.error('Error loading stats:', error);
@@ -457,7 +464,9 @@
                 document.getElementById('statPosts').textContent = '0';
                 document.getElementById('statComments').textContent = '0';
                 document.getElementById('statProjects').textContent = '0';
-                document.getElementById('statBadges').textContent = '0';
+                // For logged in users, show at least 1 badge (Welcome Aboard)
+                const session = window.DevDen.session.getSession();
+                document.getElementById('statBadges').textContent = (session && session.sessionToken) ? '1' : '0';
             }
         }
         
@@ -499,18 +508,65 @@
                             badgesGrid.appendChild(badgeCard);
                         });
                     } else {
-                        // Show "no badges" message
-                        badgesGrid.innerHTML = '<div class="no-badges"><p>No badges earned yet. Start participating to earn your first badge!</p></div>';
+                        // Check if user should have Welcome Aboard badge
+                        await ensureWelcomeBadge(userId, headers, badgesGrid);
                     }
                 } else {
                     console.error('Failed to load badges:', response.status);
                     const badgesGrid = document.getElementById('badgesGrid');
-                    badgesGrid.innerHTML = '<div class="no-badges"><p>Unable to load badges at this time.</p></div>';
+                    // Still try to ensure Welcome Aboard badge exists
+                    await ensureWelcomeBadge(userId, headers, badgesGrid);
                 }
             } catch (error) {
                 console.error('Error loading badges:', error);
                 const badgesGrid = document.getElementById('badgesGrid');
                 badgesGrid.innerHTML = '<div class="no-badges"><p>Error loading badges.</p></div>';
+            }
+        }
+
+        // ===== ENSURE WELCOME BADGE EXISTS =====
+        async function ensureWelcomeBadge(userId, headers, badgesGrid) {
+            try {
+                // Check if user is logged in (should have Welcome Aboard badge)
+                const session = window.DevDen.session.getSession();
+                if (session && session.sessionToken) {
+                    // Try to create the Welcome Aboard badge if it doesn't exist
+                    const createResponse = await fetch(`${BACK4APP_CONFIG.serverURL}/classes/UserBadge`, {
+                        method: 'POST',
+                        headers: {
+                            ...headers,
+                            'X-Parse-Session-Token': session.sessionToken
+                        },
+                        body: JSON.stringify({
+                            userId: userId,
+                            badgeId: 'welcome-badge',
+                            badgeName: 'Welcome Aboard',
+                            earnedAt: new Date().toISOString()
+                        })
+                    });
+
+                    if (createResponse.ok) {
+                        // Badge created successfully, display it
+                        badgesGrid.innerHTML = '';
+                        const badgeCard = createBadgeCard({
+                            name: 'Welcome Aboard',
+                            description: `Earned on ${new Date().toLocaleDateString()}`,
+                            icon: getBadgeIcon('Welcome Aboard')
+                        });
+                        badgesGrid.appendChild(badgeCard);
+                        
+                        // Update the badge count in stats
+                        document.getElementById('statBadges').textContent = '1';
+                    } else {
+                        // Show "no badges" message
+                        badgesGrid.innerHTML = '<div class="no-badges"><p>No badges earned yet. Start participating to earn your first badge!</p></div>';
+                    }
+                } else {
+                    badgesGrid.innerHTML = '<div class="no-badges"><p>No badges earned yet. Start participating to earn your first badge!</p></div>';
+                }
+            } catch (error) {
+                console.error('Error ensuring welcome badge:', error);
+                badgesGrid.innerHTML = '<div class="no-badges"><p>No badges earned yet. Start participating to earn your first badge!</p></div>';
             }
         }
 
