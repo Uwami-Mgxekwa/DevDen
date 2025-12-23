@@ -168,6 +168,9 @@
         
         // Add theme toggle to pages (if not already present)
         addThemeToggleButton();
+        
+        // Add AI assistant button to pages (if not already present)
+        addAIAssistantButton();
     });
     
     // Function to add theme toggle button to page
@@ -193,6 +196,41 @@
             toggleBtn.appendChild(icon);
             header.appendChild(toggleBtn);
         }
+    }
+    
+    // Function to add AI assistant button to page
+    function addAIAssistantButton() {
+        // Check if AI button already exists
+        if (document.querySelector('.ai-assistant-btn')) {
+            return;
+        }
+        
+        // Create AI assistant button
+        const aiButton = document.createElement('a');
+        aiButton.href = 'https://uwami-mgxekwa.github.io/DevDen-Ai/';
+        aiButton.target = '_blank';
+        aiButton.rel = 'noopener';
+        aiButton.className = 'ai-assistant-btn';
+        aiButton.setAttribute('aria-label', 'DevDen AI Assistant');
+        
+        // Add AI icon (sparkles/stars icon)
+        aiButton.innerHTML = `
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 01-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 013.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 013.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 01-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 22.5l-.394-1.933a2.25 2.25 0 00-1.423-1.423L12.75 18.75l1.933-.394a2.25 2.25 0 001.423-1.423L16.5 15l.394 1.933a2.25 2.25 0 001.423 1.423L20.25 18.75l-1.933.394a2.25 2.25 0 00-1.423 1.423z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        `;
+        
+        // Add to body
+        document.body.appendChild(aiButton);
+        
+        // Add a subtle pulse animation after 3 seconds to draw attention
+        setTimeout(() => {
+            aiButton.classList.add('pulse');
+            // Remove pulse after 6 seconds
+            setTimeout(() => {
+                aiButton.classList.remove('pulse');
+            }, 6000);
+        }, 3000);
     }
     
     // Expose global utilities

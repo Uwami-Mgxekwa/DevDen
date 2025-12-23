@@ -1,0 +1,162 @@
+/* DevDen Global Styles */
+
+/* ===== AI ASSISTANT FLOATING BUTTON ===== */
+.ai-assistant-btn {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #10B981, #059669);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-decoration: none;
+}
+
+.ai-assistant-btn:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 8px 20px rgba(16, 185, 129, 0.4);
+    background: linear-gradient(135deg, #059669, #047857);
+}
+
+.ai-assistant-btn:active {
+    transform: translateY(0) scale(0.98);
+}
+
+.ai-assistant-btn svg {
+    width: 28px;
+    height: 28px;
+    transition: transform 0.3s ease;
+}
+
+.ai-assistant-btn:hover svg {
+    transform: scale(1.1);
+}
+
+/* Tooltip for AI button */
+.ai-assistant-btn::before {
+    content: 'DevDen AI Assistant';
+    position: absolute;
+    right: 70px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+
+.ai-assistant-btn::after {
+    content: '';
+    position: absolute;
+    right: 60px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-left: 6px solid rgba(0, 0, 0, 0.8);
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.ai-assistant-btn:hover::before,
+.ai-assistant-btn:hover::after {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Dark mode adjustments */
+.dark-mode .ai-assistant-btn::before {
+    background-color: rgba(255, 255, 255, 0.9);
+    color: #000;
+}
+
+.dark-mode .ai-assistant-btn::after {
+    border-left-color: rgba(255, 255, 255, 0.9);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .ai-assistant-btn {
+        bottom: 1.5rem;
+        right: 1.5rem;
+        width: 56px;
+        height: 56px;
+    }
+    
+    .ai-assistant-btn svg {
+        width: 24px;
+        height: 24px;
+    }
+    
+    .ai-assistant-btn::before {
+        right: 66px;
+        font-size: 0.813rem;
+        padding: 0.4rem 0.6rem;
+    }
+    
+    .ai-assistant-btn::after {
+        right: 56px;
+    }
+}
+
+@media (max-width: 480px) {
+    .ai-assistant-btn {
+        bottom: 1rem;
+        right: 1rem;
+        width: 52px;
+        height: 52px;
+    }
+    
+    .ai-assistant-btn svg {
+        width: 22px;
+        height: 22px;
+    }
+}
+
+/* Animation for entrance */
+@keyframes aiButtonEntrance {
+    0% {
+        opacity: 0;
+        transform: translateY(20px) scale(0.8);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.ai-assistant-btn {
+    animation: aiButtonEntrance 0.5s ease-out 1s both;
+}
+
+/* Pulse animation for attention */
+@keyframes aiPulse {
+    0%, 100% {
+        box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+    }
+    50% {
+        box-shadow: 0 4px 20px rgba(16, 185, 129, 0.5);
+    }
+}
+
+.ai-assistant-btn.pulse {
+    animation: aiPulse 2s ease-in-out infinite;
+}
