@@ -730,8 +730,8 @@ body {
 }
 
 .btn-secondary:hover {
-    border-color: var(--emerald);
-    color: var(--emerald);
+    border-color: var(--text-primary);
+    color: var(--text-primary);
     transform: translateY(-2px);
 }
 
