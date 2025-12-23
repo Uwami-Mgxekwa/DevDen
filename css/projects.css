@@ -307,8 +307,8 @@ body {
     align-items: center;
     gap: 0.5rem;
     padding: 0.75rem 1.5rem;
-    background-color: var(--emerald);
-    color: white;
+    background-color: var(--text-primary);
+    color: var(--bg-primary);
     border: none;
     border-radius: 8px;
     font-size: 0.938rem;
@@ -319,7 +319,7 @@ body {
 }
 
 .btn-create:hover {
-    background-color: var(--emerald-hover);
+    background-color: var(--text-secondary);
     transform: translateY(-2px);
     box-shadow: 0 4px 8px var(--shadow);
 }
@@ -762,12 +762,12 @@ body {
 }
 
 .btn-primary {
-    background-color: var(--emerald);
-    color: white;
+    background-color: var(--text-primary);
+    color: var(--bg-primary);
 }
 
 .btn-primary:hover {
-    background-color: var(--emerald-hover);
+    background-color: var(--text-secondary);
     transform: translateY(-2px);
     box-shadow: 0 4px 8px var(--shadow);
 }
@@ -865,12 +865,12 @@ body {
 }
 
 .btn-demo {
-    background-color: var(--emerald);
-    color: white;
+    background-color: var(--text-primary);
+    color: var(--bg-primary);
 }
 
 .btn-demo:hover {
-    background-color: var(--emerald-hover);
+    background-color: var(--text-secondary);
     transform: translateY(-2px);
 }
 

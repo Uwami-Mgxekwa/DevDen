@@ -465,13 +465,13 @@ body {
 }
 
 .btn-primary {
-    background-color: var(--emerald);
-    color: #FFFFFF;
+    background-color: var(--text-primary);
+    color: var(--bg-primary);
     width: 100%;
 }
 
 .btn-primary:hover:not(:disabled) {
-    background-color: var(--emerald-hover);
+    background-color: var(--text-secondary);
     transform: translateY(-2px);
     box-shadow: 0 4px 8px var(--shadow);
 }
