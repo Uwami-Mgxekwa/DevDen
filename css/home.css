@@ -429,12 +429,12 @@ body {
 }
 
 .btn-primary {
-    background-color: var(--emerald);
-    color: white;
+    background-color: var(--text-primary);
+    color: var(--bg-primary);
 }
 
 .btn-primary:hover {
-    background-color: var(--emerald-hover);
+    background-color: var(--text-secondary);
     transform: translateY(-2px);
     box-shadow: 0 4px 8px var(--shadow);
 }
@@ -446,8 +446,8 @@ body {
 }
 
 .btn-secondary:hover {
-    border-color: var(--emerald);
-    color: var(--emerald);
+    border-color: var(--text-primary);
+    color: var(--text-primary);
     transform: translateY(-2px);
 }
 
